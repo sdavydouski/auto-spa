@@ -1,0 +1,19 @@
+{
+  "name": "auto",
+  "version": "0.1.0",
+  "description": "Single page application",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "wiranoid",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.8.11",
+    "gulp-livereload": "^3.7.0",
+    "gulp-minify-css": "^0.4.5",
+    "gulp-plumber": "^0.6.6",
+    "gulp-sass": "^1.3.3",
+    "oracledb": "^0.2.4"
+  }
+}

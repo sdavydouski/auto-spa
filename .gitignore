@@ -1,0 +1,5 @@
+build/
+config/dev.js
+config/prod.js
+node_modules/
+public/
