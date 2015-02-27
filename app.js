@@ -1,6 +1,8 @@
 var db = require('./server/db/oracle'),
     config = require('./config'),
-    logger = require('./server/utils/logger');
+    logger = require('./server/utils/logger'),
+    Vehicle = require('./server/models/vehicle');
+
 
 db.initialize(function(error, db) {
     if (error) {
@@ -8,23 +10,15 @@ db.initialize(function(error, db) {
         return;
     }
 
-    logger.debug(db.pool);
+    var vehicle = new Vehicle(db.handler);
 
-    db.pool.getConnection(function(error, connection) {
+    vehicle.getVehicleById(3, function(error, result) {
         if (error) {
-            logger.fatal(error.message);
+            logger.error(error.message);
             return;
         }
 
-        connection.execute('select * from vehicles where id = 3', function(error, result) {
-            if (error) {
-                logger.error(error.message);
-                return;
-            }
-
-            logger.debug(result.rows);
-        });
-        
+        logger.debug(result);
     });
     
 });

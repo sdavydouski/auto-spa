@@ -2,8 +2,16 @@ function Vehicle(dbhandler) {
     this.dbhandler = dbhandler;
 }
 
-Vehicle.prototype.getVehicleById(id) {
+var method = Vehicle.prototype;
 
+method.getVehicleById = function(id, callback) {
+    this.dbhandler.getVehicleById(id, function(error, result) {
+         if (error) {
+            return callback(error);
+        }
+
+        callback(null, result.rows[0]);
+    });
 }
 
 

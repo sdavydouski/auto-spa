@@ -9,6 +9,7 @@
   "author": "wiranoid",
   "license": "ISC",
   "devDependencies": {
+    "async": "^0.9.0",
     "gulp": "^3.8.11",
     "gulp-livereload": "^3.7.0",
     "gulp-minify-css": "^0.4.5",

@@ -1,15 +1,16 @@
 var oracledb = require('oracledb'),
-    config = require('./../../../config');
+    config = require('./../../../config'),
+    Dbhandler = require('./handler');
 
 var Db = function(callback) {
-
-    oracledb.outFormat = oracledb.OBJECT;
     
     if (Db.prototype._singletonInstance) {
         return Db.prototype._singletonInstance;
     }
 
     Db.prototype._singletonInstance = this;
+
+    oracledb.outFormat = oracledb.OBJECT;
 
     var that = this;
 
@@ -25,7 +26,7 @@ var Db = function(callback) {
                 return;
             }
 
-            that.pool = pool;
+            that.handler = new Dbhandler(pool);
 
             callback(null, that);
         });
