@@ -12,7 +12,7 @@ db.initialize(function(error, db) {
 
     var vehicle = new Vehicle(db.handler);
 
-    vehicle.getVehicleById(3, function(error, result) {
+    vehicle.getVehicleFullInfo(4, function(error, result) {
         if (error) {
             logger.error(error.message);
             return;
@@ -22,29 +22,3 @@ db.initialize(function(error, db) {
     });
     
 });
-
-
-
-/*oracledb.getConnection(
-    {
-        user: config.db.user,
-        password: config.db.password,
-        connectString: config.db.connectString
-    }, function(err, connection) {
-        if (err) {
-            logger.fatal(err.message);
-            return;
-        }
-
-        logger.debug('Connection has been successfully established!');
-        
-        connection.execute('select * from engine_transmission_info', function(err, result) {
-		    if (err) {
-			    logger.error(err.message);
-				return;
-			}
-
-			console.log(result.rows);
-		});
-    }
-);*/
