@@ -1,24 +1,22 @@
 var db = require('./server/db/oracle'),
     config = require('./config'),
     logger = require('./server/utils/logger'),
-    Vehicle = require('./server/models/vehicle');
+    server = require('./server'),
+    async = require('async');
 
-
-db.initialize(function(error, db) {
-    if (error) {
-        logger.fatal(error.message);
-        return;
+async.waterfall([
+    function(callback) {
+        db.initialize(callback);
+    },
+    function(db, callback) {
+        server.initialize(db.handler, callback);
     }
-
-    var vehicle = new Vehicle(db.handler);
-
-    vehicle.getVehicleFullInfo(4, function(error, result) {
+    ], function(error, result) {
         if (error) {
-            logger.error(error.message);
+            logger.fatal(error.message);
             return;
         }
 
-        logger.debug(result);
-    });
-    
+        server.listen(config.server.port);
+        logger.info('Server started at port ' + config.server.port);
 });

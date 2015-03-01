@@ -1,6 +1,7 @@
 var log4js = require('log4js'),
     path = require('path'),
-    rootDir = path.dirname(require.main.filename);
+    rootDir = path.dirname(require.main.filename),
+    config = require(path.join(rootDir, 'config'));
 
 log4js.configure({
     appenders: [
@@ -10,8 +11,6 @@ log4js.configure({
 });
 
 var logger = log4js.getLogger();
-
-//add dev/prod diff
-logger.setLevel('TRACE');
+logger.setLevel(config.logger.level);
 
 module.exports = logger;
