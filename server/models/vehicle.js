@@ -27,9 +27,13 @@ method.getVehicles = function(startWith, endWith, callback) {
             return callback(error);
         }
 
-        //add error handling
+        if (result.rows.length > 0) {
+            callback( null, helper.objsInArrayKeysToLowerCase(result.rows) );
+        }
+        else {
+            callback( null, [] );
+        }
 
-        callback( null, helper.objsInArrayKeysToLowerCase(result.rows) );
     });
 };
 
@@ -50,9 +54,13 @@ method.getVehicleFullInfo = function(id, callback) {
             return callback(error);
         }
 
-        //add error handling
-
-        callback( null, helper.createVehicleStructure(result.rows[0]) );
+        if (result.rows.length > 0) {
+            callback( null, helper.createVehicleStructure(result.rows[0]) );
+        }
+        else {
+            callback( null, null );
+        }
+        
     });
 };
 
