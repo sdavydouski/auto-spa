@@ -8,54 +8,74 @@ function Dbhandler(pool) {
 var method = Dbhandler.prototype;
 
 method.getVehicleById = function(id, callback) {
-    var that = this;
+    var that = this,
+        _connection,
+        _result;
+    
     async.waterfall([
         function(callback) {
             that.pool.getConnection(callback);
         },
         function(connection, callback) {
+            _connection = connection;
             connection.execute('select * from vehicles where id = :id', { id: id }, callback);
+        },
+        function(result, callback) {
+            _result = result;
+            _connection.release(callback);
         }
-        ], function(error, result) {
+        ], function(error) {
             if (error) {
                 return callback(error);
             }
 
-            callback(null, result);
+            callback(null, _result);
     });
 };
 
 //for now - without explicit ordering
 //start, end - reserved words in oracle
 method.getVehicles = function(startWith, endWith, callback) {
-    var that = this;
+    var that = this,
+        _connection,
+        _result;
+
     async.waterfall([
         function(callback) {
             that.pool.getConnection(callback);
         },
         function(connection, callback) {
+            _connection = connection;
             connection.execute('select * ' +
                                     'from ( select a.*, rownum as rnum ' +
                                         'from ( select * from vehicles order by id ) a ' +
                                     'where rownum <= :endWith ) ' +
                                 'where rnum >= :startWith', { startWith: startWith, endWith: endWith }, callback);
+        },
+        function(result, callback) {
+            _result = result;
+            _connection.release(callback);
         }
-        ], function(error, result) {
+        ], function(error) {
             if (error) {
                 return callback(error);
             }
 
-            callback(null, result);
+            callback(null, _result);
     });
 };
 
 method.getVehicleFullInfo = function(id, callback) {
-    var that = this;
+    var that = this,
+        _connection,
+        _result;
+
     async.waterfall([
         function(callback) {
             that.pool.getConnection(callback);
         },
         function(connection, callback) {
+            _connection = connection;
             connection.execute('select t1.*, t2.*, t3.*, t4.*, t5.*, t6.* ' +
                 'from vehicles t1 ' +
                     'join engine_transmission_info t2 on t1.id = t2.vehicle_id ' +
@@ -64,13 +84,17 @@ method.getVehicleFullInfo = function(id, callback) {
                     'join interior_info t5 on t1.id = t5.vehicle_id ' +
                     'join safety_features_info t6 on t1.id = t6.vehicle_id ' +
                 'where t1.id = :id', { id: id }, callback);
+        },
+        function(result, callback) {
+            _result = result;
+            _connection.release(callback);
         }
-        ], function(error, result) {
+        ], function(error) {
             if (error) {
                 return callback(error);
             }
 
-            callback(null, result);
+            callback(null, _result);
     });
 };
 

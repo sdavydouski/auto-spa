@@ -6,10 +6,12 @@ var http = require('http'),
 
 var server = http.createServer(function(req, res) {
     var pathname = url.parse(req.url).pathname;
-    if (pathname.indexOf('api') > -1) {
-        apiRouter.serve(pathname, res);
+    //rest service
+    if (pathname.indexOf('/api/') > -1) {
+        apiRouter.serve(pathname, req, res);
         return;
     }
+    //static file server
     req.addListener('end', function() {
         fileServer.serve(req, res);
     }).resume();
