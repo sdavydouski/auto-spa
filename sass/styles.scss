@@ -1,5 +1,48 @@
-$color: green; 
+$body_background_color: #ECECEA;
+$topHeader_background_color: #74AFAD; 
+/*
+    #558C89
+    #74AFAD
+    #D9853B
+    #ECECEA
+*/
+* {
+    margin: 0;
+    padding: 0;
+}
 
-body {
-    background-color: $color;
+body { 
+    background-color: $body_background_color;
+}
+
+a {
+    text-decoration: none;
+}
+
+.topHeader {
+    width: auto;
+    padding: 1em;
+    text-align: center;
+    
+    background-color: $topHeader_background_color;
+
+    a {
+        color: black;
+    }
+}
+
+.mainContent {
+    width: auto;
+    padding: 1em;
+
+    section {
+        width: auto;
+        padding: 1em;
+        border: 1px solid #333;
+    }
+}
+
+.briefVehicle {
+    display: inline-block;
+    margin: 1em;
 }

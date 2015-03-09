@@ -37,7 +37,9 @@ method.getVehicles = function(startWith, endWith, callback) {
     });
 };
 
-/* return:
+/* 
+return:
+
 vehicle
 ----general
 --------vin

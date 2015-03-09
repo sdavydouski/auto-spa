@@ -10,7 +10,7 @@ require.config({
 
 require([
     // Load our app module and pass it to our definition function
-    'app',
+    'app'
     ], function(app) {
     // The "app" dependency is passed in as "app"
     app.initialize();
