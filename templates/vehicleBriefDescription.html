@@ -1,0 +1,7 @@
+<script id="vehicleBriefDesctiption" type="text/template">
+    <ul>
+        <% for(var property in this.model.attributes) { %>
+           <li><%= property + ' : ' + this.model.attributes[property] %></li>
+        <% } %>
+    </ul>
+</script>

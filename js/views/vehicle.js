@@ -9,7 +9,7 @@ define([
         tagname: 'div',
         className: 'briefVehicle',
 
-        template: _.template($('#briefVehicleDesctiption').html()),
+        template: _.template($('#vehicleBriefDesctiption').html()),
 
         render: function() {
             this.$el.html( this.template(this.model.toJSON()) );
