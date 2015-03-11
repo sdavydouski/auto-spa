@@ -1,7 +1,13 @@
-<script id="vehicleBriefDesctiption" type="text/template">
-    <ul>
-        <% for(var property in this.model.attributes) { %>
-           <li><%= property + ' : ' + this.model.attributes[property] %></li>
-        <% } %>
+<script id='vehicleBriefDesctiption' type='text/template'>
+    <span class='title'><%= manufacturer + ' ' + model + ' (' + model_year + ')' %></span>
+    <img class='vehicleImg' src='http://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg' width='150' height='150' alt='no-image' />
+    <ul class='shortCharacteristics'>
+        <li>Country: <%= country_manufacturer %></li>
+        <li>Body Style: <%= body_style %></li>
+        <li>Seating: <%= seating %></li>
+        <li>Doors: <%= doors %></li>
+        <li>Color: 
+            <span class='colorBlock' style='background-color: #<%= color %>'></span>
+        </li>
     </ul>
 </script>

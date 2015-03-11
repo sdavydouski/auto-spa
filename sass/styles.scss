@@ -1,5 +1,7 @@
 $body_background_color: #ECECEA;
-$topHeader_background_color: #74AFAD; 
+$topHeader_background_color: #74AFAD;
+
+$vehicleColorBlock_dimension: 20px;
 /*
     #558C89
     #74AFAD
@@ -45,4 +47,42 @@ a {
 .briefVehicle {
     display: inline-block;
     margin: 1em;
+
+    .title {
+        display: block;
+        cursor: pointer;
+    }
+
+    .title:hover {
+        color: #558C89;
+    }
+
+    .vehicleImg {
+        cursor: pointer;
+        border: 2px solid #999;
+        border-radius: 150px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    .vehicleImg:hover {
+        border: 2px solid #558C89;
+    }
+
+    .shortCharacteristics {
+        list-style: none;
+
+        li {
+            line-height: 1.5em;
+            font-size: 15px;
+        }
+    }
+
+    .colorBlock {
+        width: $vehicleColorBlock_dimension;
+        height: $vehicleColorBlock_dimension;
+        display: inline-block;
+        border: 1px solid #999;
+        border-radius: $vehicleColorBlock_dimension;
+    }
 }
