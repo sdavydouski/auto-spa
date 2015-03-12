@@ -3,7 +3,7 @@
 define([
     'underscore', 
     'backbone',
-    '../models/vehicle'
+    'models/vehicle'
     ], function(_, Backbone, Vehicle) {
     var Vehicles = Backbone.Collection.extend({
         model: Vehicle,
