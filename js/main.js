@@ -9,9 +9,8 @@ require.config({
 });
 
 require([
-    // Load our app module and pass it to our definition function
     'app'
     ], function(app) {
-    // The "app" dependency is passed in as "app"
-    app.initialize();
+    // Start Backbone history a necessary step for bookmarkable URL's
+    Backbone.history.start();       
 });

@@ -15,13 +15,19 @@ define([
             'click': 'showFullVehicleDescrtiption'
         },
 
+        initialize: function() {
+            
+        },
+
         render: function() {
             this.$el.html( this.template(this.model.toJSON()) );
             return this;
         },
 
         showFullVehicleDescrtiption: function() {
-            console.log(this.model.id);
+            //not sure about this require
+            //TODO: find out how to organize access to router from the views
+            require('app').router.navigate('vehicle/' + this.model.id, { trigger: true });
         }
     });
 

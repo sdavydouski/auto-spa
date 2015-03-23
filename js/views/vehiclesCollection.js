@@ -14,7 +14,7 @@ define([
             var vehiclesCollection = vehicles.map(function(vehicle) {
                 return new VehicleView( { model: vehicle } ).render().el;
             });
-            $('.mainContent').append( this.$el.html(vehiclesCollection) );
+            $('.mainContent').html( this.$el.html(vehiclesCollection) );
             return this;
         }
     });

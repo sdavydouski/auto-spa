@@ -119,9 +119,9 @@ router.routes = {
     /*
         url: method
     */
-        getVehicleById: router.methods.getVehicleById,
-        getVehicleFullInfo: router.methods.getVehicleFullInfo,
-        getVehicles: router.methods.getVehicles
+        //vehicle: router.methods.getVehicleById,
+        vehicle: router.methods.getVehicleFullInfo,
+        vehicles: router.methods.getVehicles
     },
     post: {},
     put: {},

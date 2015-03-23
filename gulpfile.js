@@ -11,7 +11,7 @@ var gulp = require('gulp'),
 
 gulp.task('js', function() {
     gulp.src('./js/**/*.js')
-        .pipe(uglify())
+        //.pipe(uglify())
         .pipe(gulp.dest('./build/js'));
 });
 
