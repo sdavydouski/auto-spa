@@ -5,4 +5,5 @@ config/prod.js
 node_modules/
 public/
 logs/
+resources/
 index.html

@@ -48,7 +48,8 @@ method.getVehicles = function(startWith, endWith, callback) {
             _connection = connection;
             connection.execute('select * ' +
                                     'from ( select a.*, rownum as rnum ' +
-                                        'from ( select * from vehicles order by id ) a ' +
+                                        'from ( select t1.*, t2.* from vehicles t1, goods t2 ' + 
+                                                    'where t2.product_id = t1.product_id_fk order by t1.vehicle_id ) a ' +
                                     'where rownum <= :endWith ) ' +
                                 'where rnum >= :startWith', { startWith: startWith, endWith: endWith }, callback);
         },
@@ -76,14 +77,15 @@ method.getVehicleFullInfo = function(id, callback) {
         },
         function(connection, callback) {
             _connection = connection;
-            connection.execute('select t1.*, t2.*, t3.*, t4.*, t5.*, t6.* ' +
+            connection.execute('select t1.*, t2.*, t3.*, t4.*, t5.*, t6.*, t7.* ' +
                 'from vehicles t1 ' +
-                    'join engine_transmission_info t2 on t1.id = t2.vehicle_id ' +
-                    'join dimensions_capacity_info t3 on t1.id = t3.vehicle_id ' +
-                    'join exterior_info t4 on t1.id = t4.vehicle_id ' +
-                    'join interior_info t5 on t1.id = t5.vehicle_id ' +
-                    'join safety_features_info t6 on t1.id = t6.vehicle_id ' +
-                'where t1.id = :id', { id: id }, callback);
+                'join engine_transmission_info t2 on t1.vehicle_id = t2.vehicle_id ' +
+                'join dimensions_capacity_info t3 on t1.vehicle_id = t3.vehicle_id ' +
+                'join exterior_info t4 on t1.vehicle_id = t4.vehicle_id ' +
+                'join interior_info t5 on t1.vehicle_id = t5.vehicle_id ' +
+                'join safety_features_info t6 on t1.vehicle_id = t6.vehicle_id ' +
+                'join goods t7 on t1.product_id_fk = t7.product_id ' +
+                'where t1.vehicle_id = :id', { id: id }, callback);
         },
         function(result, callback) {
             _result = result;

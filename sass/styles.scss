@@ -42,12 +42,13 @@ ul {
 
 .mainContent {
     width: auto;
-    margin-top: 50px;
     padding: 1em;
+    padding-top: 3em;
 
     .vehiclesCollection {
         width: auto;
         padding: 1em;
+        text-align: center;
 
         &:after {
             content: '';
@@ -66,8 +67,8 @@ ul {
     border: 2px solid $body_background_color;
 
     &:hover {
-        background-color: #ffff99;
-        transition: .4s ease-out;
+        /* background-color: #ffff99;
+        transition: .4s ease-out; */
 
         .title {
             color: $topHeader_background_color;

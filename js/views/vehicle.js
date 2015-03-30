@@ -27,7 +27,7 @@ define([
         showFullVehicleDescrtiption: function() {
             //not sure about this require
             //TODO: find out how to organize access to router from the views
-            require('app').router.navigate('vehicle/' + this.model.id, { trigger: true });
+            require('app').router.navigate('vehicle/' + this.model.get('vehicle_id'), { trigger: true });
         }
     });
 

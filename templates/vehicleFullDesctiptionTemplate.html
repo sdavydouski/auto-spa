@@ -20,6 +20,7 @@
                     <li>Color: 
                         <span class='colorBlock' style='background-color: #<%= general.color %>'></span>
                     </li>
+                    <li><%= 'Price : ' + product.price + '$'  %></li>
                 </ul>
             </div>
 
@@ -45,7 +46,7 @@
                     <li><%= 'Gas Mileage : ' + engine_transmission.gas_mileage  %></li>
                     <li><%= 'Compression Ratio : ' + (engine_transmission.compression_ratio || '')  %></li>
                     <li><%= 'Fuel Type : ' + engine_transmission.fuel_type  %></li>
-                    <li><%= 'Total Number Valves : ' + engine_transmission.total_number_valves  %></li>
+                    <li><%= 'Total Number Valves : ' + (engine_transmission.total_number_valves || '')  %></li>
                     <li><%= 'Bore x Stroke : ' + (engine_transmission.bore_x_stroke || '')  %></li>
                 </ul>
             </div>
@@ -62,14 +63,14 @@
                     <li><%= 'Tires / Wheel Size : ' + dimension_capacity.tires_wheel_size  %></li>
                     <li><%= 'Rear Tires / Wheel Size : ' + (dimension_capacity.rear_tires_wheel_size || '')  %></li>
                     <li><%= 'Wheel Base : ' + dimension_capacity.wheel_base + ' in.'  %></li>
-                    <li><%= 'Spare Tire : ' + dimension_capacity.spare_tire  %></li>
+                    <li><%= 'Spare Tire : ' + (dimension_capacity.spare_tire || '')  %></li>
                     <li><%= 'Wheel Type : ' + dimension_capacity.wheel_type  %></li>
-                    <li><%= 'Turning Radius : ' + (dimension_capacity.turning_radius || '') + ' ft.'  %></li>
+                    <li><%= 'Turning Radius : ' + ((dimension_capacity.turning_radius === null) ? '' : + dimension_capacity.turning_radius + ' ft.')  %></li>
                     <li><%= 'Axle Ratio : ' + (dimension_capacity.axle_ratio || '')  %></li>
-                    <li><%= 'Ground Clearance : ' + (dimension_capacity.ground_clearance || '') + ' in.'  %></li>
+                    <li><%= 'Ground Clearance : ' + ((dimension_capacity.ground_clearance !== null) ? dimension_capacity.ground_clearance + ' in.' : '')  %></li>
                     <li><%= 'GVWR : ' + (dimension_capacity.gvwr || '')  %></li>
-                    <li><%= 'Maximum Towing : ' + (dimension_capacity.maximum_towing || '')  %></li>
-                    <li><%= 'Payload Base Capacity : ' + (dimension_capacity.payload_base_capacity || '')  %></li>
+                    <li><%= 'Maximum Towing : ' + ((dimension_capacity.maximum_towing === null) ? '' : + dimension_capacity.maximum_towing + ' lbs.')  %></li>
+                    <li><%= 'Payload Base Capacity : ' + ((dimension_capacity.payload_base_capacity === null) ? '' : + dimension_capacity.payload_base_capacity + ' lbs.')  %></li>
                 </ul>
             </div>
 
@@ -137,7 +138,7 @@
                     <li><%= 'Airbags : ' + safety_features.airbags  %></li>
                     <li><%= 'Child Door Locks : ' + safety_features.child_door_locks  %></li>
                     <li><%= 'Child Seat Anchors : ' + safety_features.child_seat_anchors  %></li>
-                    <li><%= 'Integrated Child Seat : ' + (safety_features.integrated_child_seat || + '')  %></li>
+                    <li><%= 'Integrated Child Seat : ' + ((safety_features.integrated_child_seat === null)? '' : safety_features.integrated_child_seat)  %></li>
                     <li><%= 'Alarm System : ' + safety_features.alarm_system  %></li>
                     <li><%= 'Engine Immobilizer : ' + safety_features.engine_immobilizer  %></li>
                 </ul>

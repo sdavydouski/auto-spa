@@ -2,36 +2,54 @@
 <html>
 <head>
     <meta charset='utf-8' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no'>
 
-    <!-- <link rel='stylesheet' href='build/public/libs/normalize.css/normalize.css' /> -->
-    <link rel='stylesheet' href='build/public/libs/bootstrap/dist/css/bootstrap.css' />
+    <link rel='stylesheet' href='build/public/libs/bootstrap/dist/css/bootstrap.min.css' />
+    <link rel='stylesheet' href='build/public/libs/Slidebars/distribution/0.10/slidebars.min.css'>
     <link rel='stylesheet' href='build/css/styles.css' />
 
     <title>Auto</title>
 
-    <!-- Load the script "js/main.js" as our entry point -->
-    <script data-main="build/js/main.js" src="build/public/libs/requirejs/require.js"></script>
+    <script src='build/public/libs/jquery/dist/jquery.min.js'></script>
+    <!-- Load the script 'js/main.js' as our entry point -->
+    <script data-main='build/js/main.js' src='build/public/libs/requirejs/require.js'></script>
 </head>
 <body>
 
-<div class="topLine"></div>
-<header class="topHeader">
-    <nav>
-        <a href="/#">Main</a> |
-        <a href="#">link#2</a> |
-        <a href="#">link#3</a> |
-        <a href="#">link#4</a>
-    </nav>
-</header>
+<main id="sb-site">
+    <header class='topHeader'>
+        <nav>
+            <a href='/#'>Main</a> |
+            <a href='#'>link#2</a> |
+            <a href='#'>link#3</a> |
+            <a href='#' class='sb-toggle-right'>Right Slide</a>
+        </nav>
+    </header>
 
-<main class="mainContent">
+    <section class='mainContent'>
 
+    </section>
+
+
+    <!-- Underscore templates -->
+    <!-- templates... -->
 </main>
 
 
-<!-- Underscore templates -->
-<!-- templates... -->
+<div class="sb-slidebar sb-right">
+    sidebar
+</div>
 
+<!-- Slidebars -->
+<script src='build/public/libs/Slidebars/distribution/0.10/slidebars.min.js'></script>
+<script>
+    (function($) {
+        $(document).ready(function() {
+            console.log('slidebars')
+            $.slidebars();
+        });
+    }) (jQuery);
+</script>
 
 
 </body>

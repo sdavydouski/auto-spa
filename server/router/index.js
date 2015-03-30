@@ -12,10 +12,10 @@ router.initialize = function(dbhandler, callback) {
     callback(null, 1);
 };
 
-//uri example: /api/getVehicleById/5
+//uri example: /api/vehicle/5
 router.serve = function(uri, req, res) {
     logger.debug(uri);
-    var array = uri.split('/');         //example: ["", "api", "getVehicleById", "42"]
+    var array = uri.split('/');         //example: ["", "api", "vehicle", "5"]
     logger.debug(array);
     switch (req.method) {
         case 'GET':
@@ -83,7 +83,7 @@ router.methods.getVehicleFullInfo = function(id, res) {
 //without explicit ordering (for now)
 router.methods.getVehicles = function(boundaries, res) {
     var that = this,
-        boundaries = boundaries || '1-10',
+        boundaries = boundaries || '1-12',
         array = boundaries.split('-'),
         startWith = parseInt(array[0]),
         endWith = parseInt(array[1]);
