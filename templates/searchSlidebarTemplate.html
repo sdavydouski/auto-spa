@@ -44,36 +44,66 @@
             <label for='standardEngineInput'>Engine</label>
             <input type="text" id="standardEngineInput" class="form-control" name="standardEngine" placeholder='' />
 
-            
+            <label for='fuelTypeInput'>Fuel Type</label>
+            <input type="text" id="fuelTypeInput" class="form-control" name="fuelType" placeholder='' />
+
+            <label for='transmissionInput'>Transmission</label>
+            <input type="text" id="transmissionInput" class="form-control" name="transmission" placeholder='' />
+
+            <label for='drivetrainInput'>Drivetrain</label>
+            <input type="text" id="drivetrainInput" class="form-control" name="drivetrain" placeholder='' />
         </div>
+
+
+
+        <div class="dividerLine">
+            <span data-info='features-info-panel' class="dividerTitle">Features</span>
+        </div>
+
+        <div class="form-group features-info-panel">
+            <label class="checkbox-inline">
+                <input type="checkbox" id="airConditioningInput" name="airConditioning" value='yes'> Front Air Conditioning
+            </label>
+
+            <br>
+
+            <label class="checkbox-inline">
+                <input type="checkbox" id="cruiseControlInput" name="cruiseControl" value='yes'> Cruise Control
+            </label>
+
+            <br>
+
+            <label class="checkbox-inline">
+                <input type="checkbox" id="cupHolderInput" name="cupHolder" value='yes'> Cup Holder
+            </label>
+
+            <br>
+
+            <label class="checkbox-inline">
+                <input type="checkbox" id="navigationSystemInput" name="navigationSystem" value='yes'> Navigation System
+            </label>
+
+            <br>
+
+            <label class="checkbox-inline">
+                <input type="checkbox" id="handsFreePhoneInput" name="handsFreePhone" value='yes'> Handsfree Phone
+            </label>
+
+            <br>
+
+            <label class="checkbox-inline">
+                <input type="checkbox" id="powerSeatsInput" name="powerSeats" value='yes'> Power Seats
+            </label>
+
+            <br>
+
+            <label class="checkbox-inline">
+                <input type="checkbox" id="powerWindowsInput" name="powerWindows" value='yes'> Power Windows
+            </label>
+        </div>
+
+        <input class="btn btn-default findVehicleButton" type='submit' value='Find'>
         
     </form>
-
-    <!--
-        price
-        country
-        manufacturer
-        model
-        year
-        doors
-        seating
-        engine
-        fuel type
-        transmission (manual, automatic, cvt)
-        drivetrain (FWD, AWD, 4WD, RWD)
-        air conditioning
-        cruise control
-        cd changer
-        cup holder
-        navigation system
-        hands free phone
-        power seats
-        power windows
-
-        ...
-
-        and others...
-
-    -->
     
 </script>
