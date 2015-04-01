@@ -1,5 +1,6 @@
 $body_background_color: #ffffff;
 $topHeader_background_color: #348AC7;
+$slidebar_background_color: #348AC7;
 
 $vehicleColorBlock_dimension: 20px;
 
@@ -21,10 +22,8 @@ ul {
 }
 
 
-
 .topHeader {
     z-index: 100;
-    opacity: 0.9;
     top: 0;
     left: 0;
     position: fixed;
@@ -103,6 +102,7 @@ ul {
         width: $vehicleColorBlock_dimension;
         height: $vehicleColorBlock_dimension;
         display: inline-block;
+        margin-bottom: - $vehicleColorBlock_dimension / 5;
         border: 1px solid #999;
         border-radius: $vehicleColorBlock_dimension;
     }
@@ -146,6 +146,7 @@ ul {
         width: $vehicleColorBlock_dimension;
         height: $vehicleColorBlock_dimension;
         display: inline-block;
+        margin-bottom: - $vehicleColorBlock_dimension / 5;
         border: 1px solid #999;
         border-radius: $vehicleColorBlock_dimension;
     }
@@ -163,5 +164,49 @@ ul {
             position: relative; 
             top: -0.5em;
         }
+    }
+}
+
+.sb-slidebar {
+    color: white;
+    background-color: $slidebar_background_color;
+
+    .slidebarTitle {
+        font-size: 22px;
+        margin: 1em;
+        text-align: center;
+    }
+
+    .searchVehicleForm {
+        margin: 1em;
+
+        label {
+            margin-top: 1em;
+        }
+
+        .form-group {
+            display: none;
+        }
+
+        .active-panel {
+            display: block;
+        }
+
+        .dividerLine {
+            margin-bottom: 2em;
+            margin-top: 2em;
+            height: 2px;
+            background-color: #ffffff; 
+            text-align: center;
+
+            .dividerTitle {
+                font-size: 18px;
+                background-color: $slidebar_background_color; 
+                position: relative; 
+                top: -0.5em;
+            }
+        }
+
+
     }
 }

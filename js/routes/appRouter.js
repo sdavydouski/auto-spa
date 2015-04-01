@@ -20,7 +20,6 @@ define([
             vehicles = new Vehicles();
             vehicles.fetch({                // this makes a call to the server and populates the collection based on the response.
                 success: function() {
-                    this.vehicles = vehicles;   //do I need this?
                     var vehiclesViewCollection = new VehiclesCollectionView();
                     vehiclesViewCollection.render(vehicles);
                 },
