@@ -32,7 +32,27 @@ define([
 
         findVehicles: function(event) {
             event.preventDefault();
-            console.log('find');
+            var form = this.$el.find('.searchVehicleForm'),
+                data = form.serializeArray(),    //[{name, value}, ...]
+                uriData = form.serialize(),
+                i,
+                isValid = false;
+
+            //at least one input must be filled
+            for (i = 0; i < data.length; i++) {
+                if (data[i].value !== '') {
+                    isValid = true;
+                    break;
+                }
+            }
+
+            if (isValid) {
+                this.$el.find('.searchValidBlock').css('display', 'none');      //if visible - hide
+                require('app').router.navigate('search/vehicle?' + uriData, { trigger: true });
+            }
+            else {
+                this.$el.find('.searchValidBlock').css('display', 'block');
+            }
         }
 
     });

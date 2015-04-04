@@ -1,4 +1,5 @@
-var logger = require('./../utils/logger'), 
+var url = require('url'),
+    logger = require('./../utils/logger'), 
     Vehicle = require('./../models/vehicle');
 
 
@@ -20,7 +21,7 @@ router.serve = function(uri, req, res) {
     switch (req.method) {
         case 'GET':
             if ( this.routes.get[array[2]] ) {
-                this.routes.get[array[2]].call(this, array[3], res);
+                this.routes.get[array[2]].call(this, array[3], req, res);
             }
             else {
                 this.methods.handleError(new Error('Wrong GET method!'), 400, res);
@@ -48,7 +49,7 @@ router.serve = function(uri, req, res) {
 
 router.methods = {};
 
-router.methods.getVehicleById = function(id, res) {
+router.methods.getVehicleById = function(id, req, res) {
     var that = this;
     this.models.vehicle.getVehicleById(parseInt(id), function(error, vehicle) {
         if (error) {
@@ -64,7 +65,7 @@ router.methods.getVehicleById = function(id, res) {
     })
 };
 
-router.methods.getVehicleFullInfo = function(id, res) {
+router.methods.getVehicleFullInfo = function(id, req, res) {
     var that = this;
     this.models.vehicle.getVehicleFullInfo(parseInt(id), function(error, vehicle) {
         if (error) {
@@ -81,7 +82,7 @@ router.methods.getVehicleFullInfo = function(id, res) {
 };
 
 //without explicit ordering (for now)
-router.methods.getVehicles = function(boundaries, res) {
+router.methods.getVehicles = function(boundaries, req, res) {
     var that = this,
         boundaries = boundaries || '1-12',
         array = boundaries.split('-'),
@@ -106,6 +107,30 @@ router.methods.getVehicles = function(boundaries, res) {
     })
 };
 
+
+router.methods.search = function(type, req, res) {
+    var data = url.parse(req.url, true).query,
+        that = this;
+
+    switch(type) {
+        case 'vehicle':
+            this.models.vehicle.findVehicles(data, function(error, vehicles) {
+                if (error) {
+                    return that.methods.handleError(error, 500, res);
+                }
+
+                res.setHeader('Content-Type', 'application/json');
+                res.end(JSON.stringify(vehicles));
+            });
+            break;
+        default:
+            logger.debug('search default type');
+            res.end('yep');
+            break;
+    }
+
+}
+
 router.methods.handleError = function(error, statusCode, res) {
     logger.error(error.message);
     res.statusCode = statusCode;
@@ -121,7 +146,8 @@ router.routes = {
     */
         //vehicle: router.methods.getVehicleById,
         vehicle: router.methods.getVehicleFullInfo,
-        vehicles: router.methods.getVehicles
+        vehicles: router.methods.getVehicles,
+        search: router.methods.search
     },
     post: {},
     put: {},

@@ -76,4 +76,11 @@ helper.createVehicleStructure = function(obj) {
     return newObj;
 }
 
+helper.createArrayVehicleStructure = function(array) {
+    var that = this;
+    return array.map(function(item) {
+        return that.createVehicleStructure(item);
+    });
+}
+
 module.exports = helper;

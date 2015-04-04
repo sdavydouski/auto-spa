@@ -13,11 +13,13 @@ define([
 
         routes: {
             '': 'index',
-            'vehicle/:id': 'getVehicleById'
+            'vehicle/:id': 'getVehicleById',
+            'search/vehicle?*query' : 'findVehicles'
         },
 
         index: function() {
-            vehicles = new Vehicles();
+            var vehicles = new Vehicles();
+
             vehicles.fetch({                // this makes a call to the server and populates the collection based on the response.
                 success: function() {
                     var vehiclesViewCollection = new VehiclesCollectionView();
@@ -42,6 +44,54 @@ define([
                     console.log('fetch error');
                 }
             });
+        },
+
+        findVehicles: function(query) {
+            var params = this.parseQueryString(query),
+                vehicles = new Vehicles();
+
+            vehicles.url = '/api/search/vehicle';
+
+            vehicles.fetch({
+                data: params,
+                success: function() {
+                    console.log(vehicles);
+                    //render vehicles with full info
+                },
+                error: function() {
+                    console.log('fetch error');
+                }
+            });
+        },
+
+
+        parseQueryString: function(queryString) {
+            var params = { };
+
+            if (queryString) {
+                _.each(
+                    _.map(decodeURI(queryString).split(/&/g), function(el, i) {
+                        var aux = el.split('='),
+                            o = { };
+
+                        if( aux.length >= 1 ) {
+                            var val;
+
+                            if(aux.length == 2) {
+                                val = aux[1];
+                            }
+                            o[ aux[0] ] = val;
+                        }
+
+                        return o;
+                    }),
+                    function(o) {
+                        _.extend(params, o);
+                    }
+                );
+            }
+
+            return params;
         }
 
     });

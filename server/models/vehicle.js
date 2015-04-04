@@ -66,5 +66,21 @@ method.getVehicleFullInfo = function(id, callback) {
     });
 };
 
+method.findVehicles = function(data, callback) {
+    this.dbhandler.findVehicles(data, function(error, result) {
+        if (error) {
+            return callback(error);
+        }
+
+        if (result.rows.length > 0) {
+            callback( null, helper.createArrayVehicleStructure(result.rows) );
+        }
+        else {
+            callback( null, [] );
+        }
+
+    });
+};
+
 
 module.exports = Vehicle;

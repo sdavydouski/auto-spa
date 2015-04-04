@@ -9,8 +9,11 @@
         </div>
 
         <div class="form-group general-info-panel active-panel">
-            <label for='priceInput'>Price</label>
-            <input type="text" id="priceInput" class="form-control" name="price" placeholder='$' />
+            <label for='minPriceInput'>Min Price</label>
+            <input type="text" id="minPriceInput" class="form-control" name="minPrice" placeholder='$' />
+
+            <label for='maxPriceInput'>Max Price</label>
+            <input type="text" id="maxPriceInput" class="form-control" name="maxPrice" placeholder='$' />
 
             <label for='countryManufacturerInput'>Country</label>
             <input type="text" id="countryManufacturerInput" class="form-control" name="countryManufacturer" placeholder='' />
@@ -98,9 +101,11 @@
             <br>
 
             <label class="checkbox-inline">
-                <input type="checkbox" id="powerWindowsInput" name="powerWindows" value='yes'> Power Windows
+                <input type="checkbox" id="dvdEntertainmentSystemInput" name="dvdEntertainmentSystem" value='yes'> DVD Entertainment System
             </label>
         </div>
+
+        <div class="alert alert-warning searchValidBlock" role="alert">You must fill at least one entry</div>
 
         <input class="btn btn-default findVehicleButton" type='submit' value='Find'>
         

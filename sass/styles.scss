@@ -191,7 +191,7 @@ ul {
 
         .findVehicleButton {
             display: block;
-            width: 60%;
+            width: 100%;
             margin: 0 auto;
         }
 
@@ -213,6 +213,11 @@ ul {
                 top: -0.5em;
                 cursor: pointer;
             }
+        }
+
+        .searchValidBlock {
+            text-align: center;
+            display: none;
         }
 
 
