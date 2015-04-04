@@ -5,7 +5,7 @@ helper.objKeysToLowerCase = function(obj) {
         keys = Object.keys(obj),
         n = keys.length,
         i = 0,
-        newObj={};
+        newObj = {};
 
     while (i < n) {
         key = keys[i];

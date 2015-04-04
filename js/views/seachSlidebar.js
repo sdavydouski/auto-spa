@@ -18,7 +18,15 @@ define([
         },
 
         initialize: function() {
-            
+            var that = this;
+
+            require('app').proxy.on('openSearchSlidebar', function() {
+                that.open();
+            });
+
+            require('app').proxy.on('closeSearchSlidebar', function() {
+                that.close();
+            });
         },
 
         render: function() {
@@ -33,7 +41,7 @@ define([
         findVehicles: function(event) {
             event.preventDefault();
             var form = this.$el.find('.searchVehicleForm'),
-                data = form.serializeArray(),    //[{name, value}, ...]
+                data = form.serializeArray(),    //[ {name, value}, ... ]
                 uriData = form.serialize(),
                 i,
                 isValid = false;
@@ -53,6 +61,14 @@ define([
             else {
                 this.$el.find('.searchValidBlock').css('display', 'block');
             }
+        },
+
+        open: function() {
+            $.slidebars.open('right');
+        },
+
+        close: function() {
+            $.slidebars.close();
         }
 
     });

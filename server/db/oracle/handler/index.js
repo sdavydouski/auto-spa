@@ -100,6 +100,7 @@ method.getVehicleFullInfo = function(id, callback) {
     });
 };
 
+//for now - without pagination
 method.findVehicles = function(data, callback) {
     var that = this,
         _connection,

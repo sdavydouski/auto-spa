@@ -55,8 +55,8 @@ define([
             vehicles.fetch({
                 data: params,
                 success: function() {
-                    console.log(vehicles);
-                    //render vehicles with full info
+                    var vehiclesViewCollection = new VehiclesCollectionView();
+                    vehiclesViewCollection.render(vehicles);
                 },
                 error: function() {
                     console.log('fetch error');

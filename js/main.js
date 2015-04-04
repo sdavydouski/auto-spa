@@ -13,8 +13,22 @@ require.config({
 });
 
 require([
-    'app'
-    ], function(app) {
+    'app',
+    'views/mainWrapper',
+    'views/seachSlidebar'
+    ], function(app, MainWrapperView, SearchSlidebarView) {
+    /*
+        Instantiate all non-dynamic views
+    */
+    $(document).ready(function() {
+        var searchSlidebarView = new SearchSlidebarView();
+        searchSlidebarView.render();
+
+        var mainWrapper = new MainWrapperView( {
+            el: 'body'
+        });
+    });
+
     // Start Backbone history a necessary step for bookmarkable URL's
-    Backbone.history.start();      
+    Backbone.history.start();
 });

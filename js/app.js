@@ -4,20 +4,12 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'routes/appRouter',
-    'views/seachSlidebar'
-    ], function($, _, Backbone, AppRouter, SearchSlidebarView) {
+    'routes/appRouter'
+    ], function($, _, Backbone, AppRouter) {
     var app = {
-        router: new AppRouter()
+        router: new AppRouter(),
+        proxy: _.extend({}, Backbone.Events)
     };
-
-    /*
-        Instantiate all non-dynamic views
-    */
-    $(document).ready(function() {
-        var searchSlidebarView = new SearchSlidebarView();
-        searchSlidebarView.render();
-    });
 
     return app;
 });

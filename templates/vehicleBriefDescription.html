@@ -1,16 +1,37 @@
 <script id='vehicleBriefDesctiptionTemplate' type='text/template'>
-    
-    <span class='title'><%= manufacturer + ' ' + model + ' (' + model_year + ')' %></span>
-    <img class='vehicleImg' src='http://25.media.tumblr.com/tumblr_maieakTD0G1rb2an4o1_500.jpg' width='150' height='150' alt='no-image' />
-    <ul class='shortCharacteristics'>
-        <li>Country: <%= country_manufacturer %></li>
-        <li>Body Style: <%= body_style %></li>
-        <li>Seating: <%= seating %></li>
-        <li>Doors: <%= doors %></li>
-        <li>Color: 
-            <span class='colorBlock' style='background-color: #<%= color %>'></span>
-        </li>
-        <li>Price: <%= price + '$' %></li>
-    </ul>
+
+    <% if (typeof general === 'undefined') { %>
+
+        <span class='title'><%= manufacturer + ' ' + model + ' (' + model_year + ')' %></span>
+        <img class='vehicleImg' src='/resources/img/vehicle.jpg' width='150' height='150' alt='no-image' />
+        <ul class='shortCharacteristics'>
+            <li>Country: <%= country_manufacturer %></li>
+            <li>Body Style: <%= body_style %></li>
+            <li>Seating: <%= seating %></li>
+            <li>Doors: <%= doors %></li>
+            <li>Color: 
+                <span class='colorBlock' style='background-color: #<%= color %>'></span>
+            </li>
+            <li>Price: <%= price + '$' %></li>
+        </ul>
+
+    <% }
+    else 
+    { %>
+
+        <span class='title'><%= general.manufacturer + ' ' + general.model + ' (' + general.model_year + ')' %></span>
+        <img class='vehicleImg' src='/resources/img/vehicle.jpg' width='150' height='150' alt='no-image' />
+        <ul class='shortCharacteristics'>
+            <li>Country: <%= general.country_manufacturer %></li>
+            <li>Body Style: <%= general.body_style %></li>
+            <li>Seating: <%= general.seating %></li>
+            <li>Doors: <%= general.doors %></li>
+            <li>Color: 
+                <span class='colorBlock' style='background-color: #<%= general.color %>'></span>
+            </li>
+            <li>Price: <%= product.price + '$' %></li>
+        </ul>
+
+    <% } %>
     
 </script>
