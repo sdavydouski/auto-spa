@@ -21,6 +21,8 @@ define([
         initialize: function() {
             this.editMode = false;
             this.fieldValues = [];
+            //this.model.on('change', this.render, this);
+            this.backupObj = $.extend(true, {}, this.model.attributes);
         },
 
         render: function() {
@@ -43,6 +45,7 @@ define([
             $('.editable').each(function(index) {
                 that.fieldValues.push( $(this).html() );
             });
+            this.backupObj = $.extend(true, {}, this.model.attributes);
         },
 
         cancel: function(event) {
@@ -53,7 +56,7 @@ define([
             this.saveFieldValues();
             this.switchToNormalMode(false);
 
-            //update model
+            this.model.save();
         },
 
         switchToNormalMode: function(isCanceled) {
@@ -61,12 +64,13 @@ define([
 
             $('.editButtonRow').css('display', 'block');
             $('.saveCancelButtonsRow').css('display', 'none');
-            console.log(isCanceled);
+            
             if (isCanceled) {
                 var that = this;
                 $('.editable').each(function(index) {
                     $(this).html( that.fieldValues[index] );
                 });
+                this.model.set(this.backupObj);
             }
         },
 
@@ -83,17 +87,37 @@ define([
                 replaceableElement = eventTarget;
                 fieldValue = eventTarget.html();
             }
+            else if (eventTarget.attr('class') === 'editInput') {
+                return;
+            }
             else {
                 replaceableElement = eventTarget.find('.editable');
                 fieldValue = replaceableElement.html();
             }
 
+            var fieldType = $(replaceableElement).data('type'),
+                field = $(replaceableElement).data('attr'),
+                prevValue,
+                that = this;
+
             $(replaceableElement).replaceWith('<input type="text" class="editInput" value="' + fieldValue + '"></input>');
             $('.editInput').focus();
             $('.editInput').blur(function(e) {
                 var value = $(this).val();
-                $(this).replaceWith('<span class="editable">' + value + '</span>');
+                value = that.isNumber(value) ? +value : value;
+                $(this).replaceWith('<span class="editable" data-type="' + fieldType + '" data-attr="' + field + '">' + value + '</span>');
+
+                that.model.get(fieldType)[field] = value;
+
+                console.log(that.model.get(fieldType));
+                console.log(that.backupObj);
             });
+
+
+        },
+
+        isNumber: function(string) {
+            return !isNaN(parseFloat(string)) && isFinite(string);
         }
 
     });

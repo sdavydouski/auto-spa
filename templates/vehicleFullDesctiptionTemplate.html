@@ -20,19 +20,19 @@
             <div class="col-xs-6 col-sm-8 listContainer">
                 <span class="listTitle">General</span>
                 <ul class="fullDescriptionList">
-                    <li><%= 'VIN : <span class="editable">' + general.vin + '</span>'  %></li>
-                    <li><%= 'Manufacturer : <span class="editable">' + general.manufacturer + '</span>'  %></li>
-                    <li><%= 'Model : <span class="editable">' + general.model + '</span>'  %></li>
-                    <li><%= 'Model Year : <span class="editable">' + general.model_year + '</span>'  %></li>
-                    <li><%= 'Country Manufacturer : <span class="editable">' + general.country_manufacturer + '</span>'  %></li>
-                    <li><%= 'Sequential Number : <span class="editable">' + general.sequential_number + '</span>'  %></li>
-                    <li><%= 'Body Style : <span class="editable">' + general.body_style + '</span>'  %></li>
-                    <li><%= 'Seating : <span class="editable">' + general.seating + '</span>'  %></li>
-                    <li><%= 'Doors : <span class="editable">' + general.doors + '</span>'  %></li>
+                    <li><%= 'VIN : <span class="editable" data-type="general" data-attr="vin">' + general.vin + '</span>'  %></li>
+                    <li><%= 'Manufacturer : <span class="editable" data-type="general" data-attr="manufacturer">' + general.manufacturer + '</span>'  %></li>
+                    <li><%= 'Model : <span class="editable" data-type="general" data-attr="model">' + general.model + '</span>'  %></li>
+                    <li><%= 'Model Year : <span class="editable" data-type="general" data-attr="model_year">' + general.model_year + '</span>'  %></li>
+                    <li><%= 'Country Manufacturer : <span class="editable" data-type="general" data-attr="country_manufacturer">' + general.country_manufacturer + '</span>'  %></li>
+                    <li><%= 'Sequential Number : <span class="editable" data-type="general" data-attr="sequential_number">' + general.sequential_number + '</span>'  %></li>
+                    <li><%= 'Body Style : <span class="editable" data-type="general" data-attr="body_style">' + general.body_style + '</span>'  %></li>
+                    <li><%= 'Seating : <span class="editable" data-type="general" data-attr="seating">' + general.seating + '</span>'  %></li>
+                    <li><%= 'Doors : <span class="editable" data-type="general" data-attr="doors">' + general.doors + '</span>'  %></li>
                     <li>Color: 
                         <span class='colorBlock' style='background-color: #<%= general.color %>'></span>
                     </li>
-                    <li><%= 'Price : <span class="editable">' + product.price + '</span>' + '$'  %></li>
+                    <li><%= 'Price : <span class="editable" data-type="product" data-attr="price">' + product.price + '</span>' + '$'  %></li>
                 </ul>
             </div>
 
