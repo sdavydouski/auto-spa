@@ -180,5 +180,29 @@ method.findVehicles = function(data, callback) {
     });
 };
 
+method.updateVehicle = function(vehicle, callback) {
+    var that = this,
+        _connection;
+
+    async.waterfall([
+        function(callback) {
+            that.pool.getConnection(callback);
+        },
+        function(connection, callback) {
+            _connection = connection;
+            connection.execute('begin auto_spa_package.update_vehicle( :vehicle ); end;', { vehicle: vehicle }, callback);
+        },
+        function(result, callback) {
+            _connection.release(callback);
+        }
+        ], function(error) {
+            if (error) {
+                return callback(error);
+            }
+
+            callback(null);
+    });
+};
+
 
 module.exports = Dbhandler;

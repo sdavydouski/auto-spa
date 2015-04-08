@@ -49,40 +49,40 @@
             <div class="col-xs-6 col-sm-6 listContainer">
                 <span class="listTitle">Engine &amp; Transmission</span>
                 <ul class="fullDescriptionList">
-                    <li><%= 'Standard Engine : <span class="editable">' + engine_transmission.standard_engine + '</span>'  %></li>
-                    <li><%= 'Horsepower : <span class="editable">' + engine_transmission.horsepower + '</span>'  %></li>
-                    <li><%= 'Torgue : <span class="editable">' + engine_transmission.torgue + '</span>'  %></li>
-                    <li><%= 'Max Engine Speed : <span class="editable">' + (engine_transmission.max_engine_speed || '') + '</span>'  %></li>
-                    <li><%= 'Transmission : <span class="editable">' + engine_transmission.transmission + '</span>'  %></li>
-                    <li><%= 'Drivetrain : <span class="editable">' + engine_transmission.drivetrain + '</span>'  %></li>
-                    <li><%= 'Gas Mileage : <span class="editable">' + engine_transmission.gas_mileage + '</span>'  %></li>
-                    <li><%= 'Compression Ratio : <span class="editable">' + (engine_transmission.compression_ratio || '') + '</span>'  %></li>
-                    <li><%= 'Fuel Type : <span class="editable">' + engine_transmission.fuel_type + '</span>'  %></li>
-                    <li><%= 'Total Number Valves : <span class="editable">' + (engine_transmission.total_number_valves || '') + '</span>'  %></li>
-                    <li><%= 'Bore x Stroke : <span class="editable">' + (engine_transmission.bore_x_stroke || '') + '</span>'  %></li>
+                    <li><%= 'Standard Engine : <span class="editable" data-type="engine_transmission" data-attr="standard_engine">' + engine_transmission.standard_engine + '</span>'  %></li>
+                    <li><%= 'Horsepower : <span class="editable" data-type="engine_transmission" data-attr="horsepower">' + engine_transmission.horsepower + '</span>'  %></li>
+                    <li><%= 'Torgue : <span class="editable" data-type="engine_transmission" data-attr="torgue">' + engine_transmission.torgue + '</span>'  %></li>
+                    <li><%= 'Max Engine Speed : <span class="editable" data-type="engine_transmission" data-attr="max_engine_speed">' + (engine_transmission.max_engine_speed || '') + '</span>'  %></li>
+                    <li><%= 'Transmission : <span class="editable" data-type="engine_transmission" data-attr="transmission">' + engine_transmission.transmission + '</span>'  %></li>
+                    <li><%= 'Drivetrain : <span class="editable" data-type="engine_transmission" data-attr="drivetrain">' + engine_transmission.drivetrain + '</span>'  %></li>
+                    <li><%= 'Gas Mileage : <span class="editable" data-type="engine_transmission" data-attr="gas_mileage">' + engine_transmission.gas_mileage + '</span>'  %></li>
+                    <li><%= 'Compression Ratio : <span class="editable" data-type="engine_transmission" data-attr="compression_ratio">' + (engine_transmission.compression_ratio || '') + '</span>'  %></li>
+                    <li><%= 'Fuel Type : <span class="editable" data-type="engine_transmission" data-attr="fuel_type">' + engine_transmission.fuel_type + '</span>'  %></li>
+                    <li><%= 'Total Number Valves : <span class="editable" data-type="engine_transmission" data-attr="total_number_valves">' + (engine_transmission.total_number_valves || '') + '</span>'  %></li>
+                    <li><%= 'Bore x Stroke : <span class="editable" data-type="engine_transmission" data-attr="bore_x_stroke">' + (engine_transmission.bore_x_stroke || '') + '</span>'  %></li>
                 </ul>
             </div>
 
             <div class="col-xs-6 col-sm-6 listContainer">
                 <span class="listTitle">Dimension &amp; Capacity</span>
                 <ul class="fullDescriptionList">
-                    <li><%= 'Truck Bed Volume : <span class="editable">' + (dimension_capacity.truck_bed_volume || '') + '</span>'  %></li>
-                    <li><%= 'Fuel Capacity : <span class="editable">' + dimension_capacity.fuel_capacity + '</span>' + ' gal.'  %></li>
-                    <li><%= 'Overall Length : <span class="editable">' + dimension_capacity.overall_length + '</span>' + ' in.' %></li>
-                    <li><%= 'Width : <span class="editable">' + dimension_capacity.width + '</span>' + ' in.'  %></li>
-                    <li><%= 'Height : <span class="editable">' + dimension_capacity.height + '</span>' + ' in.'  %></li>
-                    <li><%= 'Curb Weight : <span class="editable">' + dimension_capacity.curb_weight + '</span>' + ' lbs.'  %></li>
-                    <li><%= 'Tires / Wheel Size : <span class="editable">' + dimension_capacity.tires_wheel_size + '</span>'  %></li>
-                    <li><%= 'Rear Tires / Wheel Size : <span class="editable">' + (dimension_capacity.rear_tires_wheel_size || '') + '</span>'  %></li>
-                    <li><%= 'Wheel Base : <span class="editable">' + dimension_capacity.wheel_base + '</span>' + ' in.'  %></li>
-                    <li><%= 'Spare Tire : <span class="editable">' + (dimension_capacity.spare_tire || '') + '</span>'  %></li>
-                    <li><%= 'Wheel Type : <span class="editable">' + dimension_capacity.wheel_type + '</span>'  %></li>
-                    <li><%= 'Turning Radius : <span class="editable">' + ((dimension_capacity.turning_radius === null) ? '' +  '</span>' : + dimension_capacity.turning_radius + '</span>' + ' ft.')  %></li>
-                    <li><%= 'Axle Ratio : <span class="editable">' + (dimension_capacity.axle_ratio || '') + '</span>'  %></li>
-                    <li><%= 'Ground Clearance : <span class="editable">' + ((dimension_capacity.ground_clearance !== null) ? dimension_capacity.ground_clearance + '</span>' + ' in.' : '' + '</span>')  %></li>
-                    <li><%= 'GVWR : <span class="editable">' + (dimension_capacity.gvwr || '') + '</span>'  %></li>
-                    <li><%= 'Maximum Towing : <span class="editable">' + ((dimension_capacity.maximum_towing === null) ? '' +  '</span>' : + dimension_capacity.maximum_towing + '</span>' + ' lbs.')  %></li>
-                    <li><%= 'Payload Base Capacity : <span class="editable">' + ((dimension_capacity.payload_base_capacity === null) ? '' + '</span>' : + dimension_capacity.payload_base_capacity + '</span>' + ' lbs.')  %></li>
+                    <li><%= 'Truck Bed Volume : <span class="editable" data-type="dimension_capacity" data-attr="truck_bed_volume">' + (dimension_capacity.truck_bed_volume || '') + '</span>'  %></li>
+                    <li><%= 'Fuel Capacity : <span class="editable" data-type="dimension_capacity" data-attr="fuel_capacity">' + dimension_capacity.fuel_capacity + '</span>' + ' gal.'  %></li>
+                    <li><%= 'Overall Length : <span class="editable" data-type="dimension_capacity" data-attr="overall_length">' + dimension_capacity.overall_length + '</span>' + ' in.' %></li>
+                    <li><%= 'Width : <span class="editable" data-type="dimension_capacity" data-attr="width">' + dimension_capacity.width + '</span>' + ' in.'  %></li>
+                    <li><%= 'Height : <span class="editable" data-type="dimension_capacity" data-attr="height">' + dimension_capacity.height + '</span>' + ' in.'  %></li>
+                    <li><%= 'Curb Weight : <span class="editable" data-type="dimension_capacity" data-attr="curb_weight">' + dimension_capacity.curb_weight + '</span>' + ' lbs.'  %></li>
+                    <li><%= 'Tires / Wheel Size : <span class="editable" data-type="dimension_capacity" data-attr="tires_wheel_size">' + dimension_capacity.tires_wheel_size + '</span>'  %></li>
+                    <li><%= 'Rear Tires / Wheel Size : <span class="editable" data-type="dimension_capacity" data-attr="rear_tires_wheel_size">' + (dimension_capacity.rear_tires_wheel_size || '') + '</span>'  %></li>
+                    <li><%= 'Wheel Base : <span class="editable" data-type="dimension_capacity" data-attr="wheel_base">' + dimension_capacity.wheel_base + '</span>' + ' in.'  %></li>
+                    <li><%= 'Spare Tire : <span class="editable" data-type="dimension_capacity" data-attr="spare_tire">' + (dimension_capacity.spare_tire || '') + '</span>'  %></li>
+                    <li><%= 'Wheel Type : <span class="editable" data-type="dimension_capacity" data-attr="wheel_type">' + dimension_capacity.wheel_type + '</span>'  %></li>
+                    <li><%= 'Turning Radius : <span class="editable" data-type="dimension_capacity" data-attr="turning_radius">' + ((dimension_capacity.turning_radius === null) ? '' +  '</span>' : + dimension_capacity.turning_radius + '</span>' + ' ft.')  %></li>
+                    <li><%= 'Axle Ratio : <span class="editable" data-type="dimension_capacity" data-attr="axle_ratio">' + (dimension_capacity.axle_ratio || '') + '</span>'  %></li>
+                    <li><%= 'Ground Clearance : <span class="editable" data-type="dimension_capacity" data-attr="ground_clearance">' + ((dimension_capacity.ground_clearance !== null) ? dimension_capacity.ground_clearance + '</span>' + ' in.' : '' + '</span>')  %></li>
+                    <li><%= 'GVWR : <span class="editable" data-type="dimension_capacity" data-attr="gvwr">' + (dimension_capacity.gvwr || '') + '</span>'  %></li>
+                    <li><%= 'Maximum Towing : <span class="editable" data-type="dimension_capacity" data-attr="maximum_towing">' + ((dimension_capacity.maximum_towing === null) ? '' +  '</span>' : + dimension_capacity.maximum_towing + '</span>' + ' lbs.')  %></li>
+                    <li><%= 'Payload Base Capacity : <span class="editable" data-type="dimension_capacity" data-attr="payload_base_capacity">' + ((dimension_capacity.payload_base_capacity === null) ? '' + '</span>' : + dimension_capacity.payload_base_capacity + '</span>' + ' lbs.')  %></li>
                 </ul>
             </div>
 
@@ -100,68 +100,62 @@
             <div class="col-xs-6 col-sm-6 listContainer">
                 <span class="listTitle">Interior</span>
                 <ul class="fullDescriptionList">
-                    <li><%= 'Front Air Conditioning : <span class="editable">' + interior.front_air_conditioning + '</span>'  %></li>
-                    <li><%= 'Front & Rear Air Conditioning : <span class="editable">' + interior.front_rear_air_conditioning + '</span>'  %></li>
-                    <li><%= 'Cruise Control : <span class="editable">' + interior.cruise_control + '</span>'  %></li>
-                    <li><%= 'AM/FM Radio : <span class="editable">' + interior.am_fm_radio + '</span>'  %></li>
-                    <li><%= 'Cassette : <span class="editable">' + interior.cassette + '</span>'  %></li>
-                    <li><%= 'Compact Disc : <span class="editable">' + interior.compact_disc + '</span>'  %></li>
-                    <li><%= 'CD Changer : <span class="editable">' + interior.cd_changer + '</span>'  %></li>
-                    <li><%= 'Premium Radio : <span class="editable">' + interior.premium_radio + '</span>'  %></li>
-                    <li><%= 'DVD Entertainment System : <span class="editable">' + interior.dvd_entertainment_system + '</span>'  %></li>
-                    <li><%= 'Cup Holder : <span class="editable">' + interior.cup_holder + '</span>'  %></li>
-                    <li><%= 'Leather : <span class="editable">' + interior.leather + '</span>'  %></li>
-                    <li><%= 'Navigation System : <span class="editable">' + interior.navigation_system + '</span>'  %></li>
-                    <li><%= 'Privacy Glass : <span class="editable">' + interior.privacy_glass + '</span>'  %></li>
-                    <li><%= 'Hands Free Phone : <span class="editable">' + interior.hands_free_phone + '</span>'  %></li>
-                    <li><%= 'Power Locks : <span class="editable">' + interior.power_locks + '</span>'  %></li>
-                    <li><%= 'Power Outlets : <span class="editable">' + interior.power_outlets + '</span>'  %></li>
-                    <li><%= 'Power Mirrors : <span class="editable">' + interior.power_mirrors + '</span>'  %></li>
-                    <li><%= 'Remote Mirrors : <span class="editable">' + interior.remote_mirrors + '</span>'  %></li>
-                    <li><%= 'Power Seats : <span class="editable">' + interior.power_seats + '</span>'  %></li>
-                    <li><%= 'Dual Power Seats : <span class="editable">' + interior.dual_power_seats + '</span>'  %></li>
-                    <li><%= 'Folding Rear Seat : <span class="editable">' + interior.folding_rear_seat + '</span>'  %></li>
-                    <li><%= 'Moon Roof : <span class="editable">' + interior.moon_roof + '</span>'  %></li>
-                    <li><%= 'Sun Roof : <span class="editable">' + interior.sun_roof + '</span>'  %></li>
-                    <li><%= 'Remote Keyless Entry : <span class="editable">' + interior.remote_keyless_entry + '</span>'  %></li>
-                    <li><%= 'Rear Window Defroster : <span class="editable">' + interior.rear_window_defroster + '</span>'  %></li>
-                    <li><%= 'Tilt Wheel : <span class="editable">' + interior.tilt_wheel + '</span>'  %></li>
-                    <li><%= 'Tachometer : <span class="editable">' + interior.tachometer + '</span>'  %></li>
-                    <li><%= 'Traction Control : <span class="editable">' + interior.traction_control + '</span>'  %></li>
-                    <li><%= 'Power Windows : <span class="editable">' + interior.power_windows + '</span>'  %></li>
+                    <li><%= 'Front Air Conditioning : <span class="editable" data-type="interior" data-attr="front_air_conditioning">' + interior.front_air_conditioning + '</span>'  %></li>
+                    <li><%= 'Front & Rear Air Conditioning : <span class="editable" data-type="interior" data-attr="front_rear_air_conditioning">' + interior.front_rear_air_conditioning + '</span>'  %></li>
+                    <li><%= 'Cruise Control : <span class="editable" data-type="interior" data-attr="cruise_control">' + interior.cruise_control + '</span>'  %></li>
+                    <li><%= 'AM/FM Radio : <span class="editable" data-type="interior" data-attr="am_fm_radio">' + interior.am_fm_radio + '</span>'  %></li>
+                    <li><%= 'Cassette : <span class="editable" data-type="interior" data-attr="cassette">' + interior.cassette + '</span>'  %></li>
+                    <li><%= 'Compact Disc : <span class="editable" data-type="interior" data-attr="compact_disc">' + interior.compact_disc + '</span>'  %></li>
+                    <li><%= 'CD Changer : <span class="editable" data-type="interior" data-attr="cd_changer">' + interior.cd_changer + '</span>'  %></li>
+                    <li><%= 'Premium Radio : <span class="editable" data-type="interior" data-attr="premium_radio">' + interior.premium_radio + '</span>'  %></li>
+                    <li><%= 'DVD Entertainment System : <span class="editable" data-type="interior" data-attr="dvd_entertainment_system">' + interior.dvd_entertainment_system + '</span>'  %></li>
+                    <li><%= 'Cup Holder : <span class="editable" data-type="interior" data-attr="cup_holder">' + interior.cup_holder + '</span>'  %></li>
+                    <li><%= 'Leather : <span class="editable" data-type="interior" data-attr="leather">' + interior.leather + '</span>'  %></li>
+                    <li><%= 'Navigation System : <span class="editable" data-type="interior" data-attr="navigation_system">' + interior.navigation_system + '</span>'  %></li>
+                    <li><%= 'Privacy Glass : <span class="editable" data-type="interior" data-attr="privacy_glass">' + interior.privacy_glass + '</span>'  %></li>
+                    <li><%= 'Hands Free Phone : <span class="editable" data-type="interior" data-attr="hands_free_phone">' + interior.hands_free_phone + '</span>'  %></li>
+                    <li><%= 'Power Locks : <span class="editable" data-type="interior" data-attr="power_locks">' + interior.power_locks + '</span>'  %></li>
+                    <li><%= 'Power Outlets : <span class="editable" data-type="interior" data-attr="power_outlets">' + interior.power_outlets + '</span>'  %></li>
+                    <li><%= 'Power Mirrors : <span class="editable" data-type="interior" data-attr="power_mirrors">' + interior.power_mirrors + '</span>'  %></li>
+                    <li><%= 'Remote Mirrors : <span class="editable" data-type="interior" data-attr="remote_mirrors">' + interior.remote_mirrors + '</span>'  %></li>
+                    <li><%= 'Power Seats : <span class="editable" data-type="interior" data-attr="power_seats">' + interior.power_seats + '</span>'  %></li>
+                    <li><%= 'Dual Power Seats : <span class="editable" data-type="interior" data-attr="dual_power_seats">' + interior.dual_power_seats + '</span>'  %></li>
+                    <li><%= 'Folding Rear Seat : <span class="editable" data-type="interior" data-attr="folding_rear_seat">' + interior.folding_rear_seat + '</span>'  %></li>
+                    <li><%= 'Moon Roof : <span class="editable" data-type="interior" data-attr="moon_roof">' + interior.moon_roof + '</span>'  %></li>
+                    <li><%= 'Sun Roof : <span class="editable" data-type="interior" data-attr="sun_roof">' + interior.sun_roof + '</span>'  %></li>
+                    <li><%= 'Remote Keyless Entry : <span class="editable" data-type="interior" data-attr="remote_keyless_entry">' + interior.remote_keyless_entry + '</span>'  %></li>
+                    <li><%= 'Rear Window Defroster : <span class="editable" data-type="interior" data-attr="rear_window_defroster">' + interior.rear_window_defroster + '</span>'  %></li>
+                    <li><%= 'Tilt Wheel : <span class="editable" data-type="interior" data-attr="tilt_wheel">' + interior.tilt_wheel + '</span>'  %></li>
+                    <li><%= 'Tachometer : <span class="editable" data-type="interior" data-attr="tachometer">' + interior.tachometer + '</span>'  %></li>
+                    <li><%= 'Traction Control : <span class="editable" data-type="interior" data-attr="traction_control">' + interior.traction_control + '</span>'  %></li>
+                    <li><%= 'Power Windows : <span class="editable" data-type="interior" data-attr="power_windows">' + interior.power_windows + '</span>'  %></li>
                 </ul>
             </div>
 
             <div class="col-xs-6 col-sm-6 listContainer">
                 <span class="listTitle">Exterior</span>
                 <ul class="fullDescriptionList">
-                    <li><%= '2W Antilock Brakes : <span class="editable">' + exterior.w2_antilock_brakes + '</span>'  %></li>
-                    <li><%= '4W Antilock Brakes : <span class="editable">' + exterior.w4_antilock_brakes + '</span>'  %></li>
-                    <li><%= 'Brakes: Front : <span class="editable">' + exterior.brakes_front + '</span>'  %></li>
-                    <li><%= 'Brakes: Rear : <span class="editable">' + exterior.brakes_rear + '</span>'  %></li>
-                    <li><%= 'Luggage Rack : <span class="editable">' + exterior.luggage_rack + '</span>'  %></li>
-                    <li><%= 'Upgraded Wheels : <span class="editable">' + exterior.upgraded_wheels + '</span>'  %></li>
+                    <li><%= '2W Antilock Brakes : <span class="editable" data-type="exterior" data-attr="w2_antilock_brakes">' + exterior.w2_antilock_brakes + '</span>'  %></li>
+                    <li><%= '4W Antilock Brakes : <span class="editable" data-type="exterior" data-attr="w4_antilock_brakes">' + exterior.w4_antilock_brakes + '</span>'  %></li>
+                    <li><%= 'Brakes: Front : <span class="editable" data-type="exterior" data-attr="brakes_front">' + exterior.brakes_front + '</span>'  %></li>
+                    <li><%= 'Brakes: Rear : <span class="editable" data-type="exterior" data-attr="brakes_rear">' + exterior.brakes_rear + '</span>'  %></li>
+                    <li><%= 'Luggage Rack : <span class="editable" data-type="exterior" data-attr="luggage_rack">' + exterior.luggage_rack + '</span>'  %></li>
+                    <li><%= 'Upgraded Wheels : <span class="editable" data-type="exterior" data-attr="upgraded_wheels">' + exterior.upgraded_wheels + '</span>'  %></li>
                 </ul>
             </div>
 
             <div class="col-xs-6 col-sm-6 listContainer">
                 <span class="listTitle">Safety Features</span>
                 <ul class="fullDescriptionList">
-                    <li><%= 'Airbags : <span class="editable">' + safety_features.airbags + '</span>'  %></li>
-                    <li><%= 'Child Door Locks : <span class="editable">' + safety_features.child_door_locks + '</span>'  %></li>
-                    <li><%= 'Child Seat Anchors : <span class="editable">' + safety_features.child_seat_anchors + '</span>'  %></li>
-                    <li><%= 'Integrated Child Seat : <span class="editable">' + ((safety_features.integrated_child_seat === null)? '' : safety_features.integrated_child_seat) + '</span>'  %></li>
-                    <li><%= 'Alarm System : <span class="editable">' + safety_features.alarm_system + '</span>'  %></li>
-                    <li><%= 'Engine Immobilizer : <span class="editable">' + safety_features.engine_immobilizer + '</span>'  %></li>
+                    <li><%= 'Airbags : <span class="editable" data-type="safety_features" data-attr="airbags">' + safety_features.airbags + '</span>'  %></li>
+                    <li><%= 'Child Door Locks : <span class="editable" data-type="safety_features" data-attr="child_door_locks">' + safety_features.child_door_locks + '</span>'  %></li>
+                    <li><%= 'Child Seat Anchors : <span class="editable" data-type="safety_features" data-attr="child_seat_anchors">' + safety_features.child_seat_anchors + '</span>'  %></li>
+                    <li><%= 'Integrated Child Seat : <span class="editable" data-type="safety_features" data-attr="integrated_child_seat">' + ((safety_features.integrated_child_seat === null)? '' : safety_features.integrated_child_seat) + '</span>'  %></li>
+                    <li><%= 'Alarm System : <span class="editable" data-type="safety_features" data-attr="alarm_system">' + safety_features.alarm_system + '</span>'  %></li>
+                    <li><%= 'Engine Immobilizer : <span class="editable" data-type="safety_features" data-attr="engine_immobilizer">' + safety_features.engine_immobilizer + '</span>'  %></li>
                 </ul>
             </div>
         </div>
-        
-
-        
-
-        
-        
         
     </div>
 </script>

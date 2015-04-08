@@ -21,7 +21,6 @@ define([
         initialize: function() {
             this.editMode = false;
             this.fieldValues = [];
-            //this.model.on('change', this.render, this);
             this.backupObj = $.extend(true, {}, this.model.attributes);
         },
 
@@ -108,9 +107,6 @@ define([
                 $(this).replaceWith('<span class="editable" data-type="' + fieldType + '" data-attr="' + field + '">' + value + '</span>');
 
                 that.model.get(fieldType)[field] = value;
-
-                console.log(that.model.get(fieldType));
-                console.log(that.backupObj);
             });
 
 

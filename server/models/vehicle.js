@@ -82,5 +82,15 @@ method.findVehicles = function(data, callback) {
     });
 };
 
+method.updateVehicle = function(vehicle, callback) {
+    this.dbhandler.updateVehicle(vehicle, function(error) {
+        if (error) {
+            return callback(error);
+        }
+
+        callback(null);
+    });
+}
+
 
 module.exports = Vehicle;

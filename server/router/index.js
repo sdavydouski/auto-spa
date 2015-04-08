@@ -32,8 +32,12 @@ router.serve = function(uri, req, res) {
             res.end();
             break;
         case 'PUT':
-            logger.debug('PUT method');
-            res.end();
+            if ( this.routes.put[array[2]] ) {
+                this.routes.put[array[2]].call(this, array[3], req, res);
+            }
+            else {
+                this.methods.handleError(new Error('Wrong PUT method!'), 400, res);
+            }
             break;
         case 'DELETE':
             logger.debug('DELETE method');
@@ -129,7 +133,34 @@ router.methods.search = function(type, req, res) {
             break;
     }
 
-}
+};
+
+router.methods.updateVehicle = function(id, req, res) {
+    var body = '',
+        that = this;
+
+    req.on('data', function(data) {
+        body += data;
+
+        // Too much data, kill the connection!
+        if (body.length > 1e6) {
+            req.connection.destroy();
+        }
+    });
+
+    req.on('end', function() {
+        //body = JSON.parse(body);
+        that.models.vehicle.updateVehicle(body, function(error) {
+            if (error) {
+                return that.methods.handleError(error, 500, res);
+            }
+
+            res.end('ok');
+        });
+
+    });
+
+};
 
 router.methods.handleError = function(error, statusCode, res) {
     logger.error(error.message);
@@ -150,7 +181,9 @@ router.routes = {
         search: router.methods.search
     },
     post: {},
-    put: {},
+    put: {
+        vehicle: router.methods.updateVehicle
+    },
     _delete: {}
 };
 
