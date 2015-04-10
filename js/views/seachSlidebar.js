@@ -14,13 +14,19 @@ define([
 
         events: {
             'click .dividerTitle': 'togglePanel',
-            'click .findVehicleButton': 'findVehicles'
+            'click .findVehicleButton': 'findVehicles',
+            'keypress .priceInput': 'numbersOnly'
         },
 
         initialize: function() {
-            var that = this;
+            var that = this,
+                regexp = /vehicle\/\d/;
 
             require('app').proxy.on('openSearchSlidebar', function() {
+                if ( regexp.test(Backbone.history.getFragment()) ) {
+                    return;
+                }
+
                 that.open();
             });
 
@@ -69,6 +75,25 @@ define([
 
         close: function() {
             $.slidebars.close();
+        },
+
+        numbersOnly: function(event) {
+            var key = event.keyCode || event.which,
+                keychar = String.fromCharCode(key);
+
+            // control keys
+            if ((key==null) || (key==0) || (key==8) || 
+                (key==9) || (key==13) || (key==27) ) {
+               return true;
+            }
+            // numbers
+            else if ((("0123456789./-+*()").indexOf(keychar) > -1)) {
+               return true;
+            }
+            else {
+               return false;
+            }
+
         }
 
     });

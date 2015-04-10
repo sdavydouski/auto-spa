@@ -34,6 +34,7 @@ define([
 
             $('.editButtonRow').css('display', 'none');
             $('.saveCancelButtonsRow').css('display', 'block');
+            $('.topLine').css('display', 'block');
 
             this.saveFieldValues();
         },
@@ -63,6 +64,7 @@ define([
 
             $('.editButtonRow').css('display', 'block');
             $('.saveCancelButtonsRow').css('display', 'none');
+            $('.topLine').css('display', 'none');
             
             if (isCanceled) {
                 var that = this;
@@ -103,9 +105,11 @@ define([
             $('.editInput').focus();
             $('.editInput').blur(function(e) {
                 var value = $(this).val();
-                //add some exceptions (model, ...)
-                value = that.isNumber(value) ? +value : value;
                 $(this).replaceWith('<span class="editable" data-type="' + fieldType + '" data-attr="' + field + '">' + value + '</span>');
+
+                if ( typeof that.model.get(fieldType)[field] === 'number' ) {
+                    value = +value;
+                }
 
                 that.model.get(fieldType)[field] = value;
             });
