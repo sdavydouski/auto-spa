@@ -103,6 +103,7 @@ define([
             $('.editInput').focus();
             $('.editInput').blur(function(e) {
                 var value = $(this).val();
+                //add some exceptions (model, ...)
                 value = that.isNumber(value) ? +value : value;
                 $(this).replaceWith('<span class="editable" data-type="' + fieldType + '" data-attr="' + field + '">' + value + '</span>');
 

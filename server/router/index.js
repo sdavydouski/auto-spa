@@ -15,9 +15,8 @@ router.initialize = function(dbhandler, callback) {
 
 //uri example: /api/vehicle/5
 router.serve = function(uri, req, res) {
-    logger.debug(uri);
+    logger.debug(req.method + ' ' + uri);
     var array = uri.split('/');         //example: ["", "api", "vehicle", "5"]
-    logger.debug(array);
     switch (req.method) {
         case 'GET':
             if ( this.routes.get[array[2]] ) {
@@ -150,6 +149,7 @@ router.methods.updateVehicle = function(id, req, res) {
 
     req.on('end', function() {
         //body = JSON.parse(body);
+
         that.models.vehicle.updateVehicle(body, function(error) {
             if (error) {
                 return that.methods.handleError(error, 500, res);

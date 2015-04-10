@@ -51,10 +51,10 @@ helper.createVehicleStructure = function(obj) {
             newObj.general[key.toLowerCase()] = obj[key];
         }
         //i = 11 - vehicle_id (fk)
-        else if ( 12 <= i && i <= 23 ) {
+        else if ( 12 <= i && i <= 22 ) {
             newObj.engine_transmission[key.toLowerCase()] = obj[key];
         }
-        else if ( 24 <= i && i <= 39 ) {
+        else if ( 23 <= i && i <= 39 ) {
             newObj.dimension_capacity[key.toLowerCase()] = obj[key];
         }
         else if ( 40 <= i && i <= 45 ) {
