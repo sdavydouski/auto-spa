@@ -20,7 +20,7 @@ define([
 
         initialize: function() {
             var that = this,
-                regexp = /vehicle\/\d/;
+                regexp = /(vehicle\/\d)|(db)/;
 
             require('app').proxy.on('openSearchSlidebar', function() {
                 if ( regexp.test(Backbone.history.getFragment()) ) {
@@ -87,7 +87,7 @@ define([
                return true;
             }
             // numbers
-            else if ((("0123456789./-+*()").indexOf(keychar) > -1)) {
+            else if ((("0123456789").indexOf(keychar) > -1)) {
                return true;
             }
             else {

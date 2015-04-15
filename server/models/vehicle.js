@@ -90,7 +90,17 @@ method.updateVehicle = function(vehicle, callback) {
 
         callback(null);
     });
-}
+};
+
+method.insertVehicles = function(fileNames, callback) {
+    this.dbhandler.insertVehicles(fileNames, function(error) {
+        if (error) {
+            return callback(error);
+        }
+
+        callback(null);
+    });
+};
 
 
 module.exports = Vehicle;

@@ -1,4 +1,8 @@
 var url = require('url'),
+    fs = require('fs'),
+    formidable = require('formidable'),
+    path = require('path'),
+    rootDir = path.dirname(require.main.filename),
     logger = require('./../utils/logger'), 
     Vehicle = require('./../models/vehicle');
 
@@ -27,8 +31,12 @@ router.serve = function(uri, req, res) {
             }
             break;
         case 'POST':
-            logger.debug('POST method');
-            res.end();
+            if ( this.routes.post[array[2]] ) {
+                this.routes.post[array[2]].call(this, array[3], req, res);
+            }
+            else {
+                this.methods.handleError(new Error('Wrong POST method!'), 400, res);
+            }
             break;
         case 'PUT':
             if ( this.routes.put[array[2]] ) {
@@ -87,7 +95,7 @@ router.methods.getVehicleFullInfo = function(id, req, res) {
 //without explicit ordering (for now)
 router.methods.getVehicles = function(boundaries, req, res) {
     var that = this,
-        boundaries = boundaries || '1-12',
+        boundaries = boundaries || '1-121',
         array = boundaries.split('-'),
         startWith = parseInt(array[0]),
         endWith = parseInt(array[1]);
@@ -148,7 +156,6 @@ router.methods.updateVehicle = function(id, req, res) {
     });
 
     req.on('end', function() {
-        //body = JSON.parse(body);
 
         that.models.vehicle.updateVehicle(body, function(error) {
             if (error) {
@@ -161,6 +168,80 @@ router.methods.updateVehicle = function(id, req, res) {
     });
 
 };
+
+router.methods.insertVehicles = function(id, req, res) {
+    var form = new formidable.IncomingForm(),
+        that = this,
+        now = Date.now(),
+        fileNames = {
+            goodsFileName: 'goods_import_' + now + '.csv',
+            vehiclesFileName: 'vehicles_import_' + now + '.csv',
+            engineTransmissionFileName: 'engine_transmission_import_' + now + '.csv',
+            dimensionsCapacityFileName: 'dimensions_capacity_import_' + now + '.csv',
+            exteriorFileName: 'exterior_import_' + now + '.csv',
+            interiorFileName: 'interior_import_' + now + '.csv',
+            safetyFeaturesFileName: 'safety_features_import_' + now + '.csv'
+        };
+
+    form.encoding = 'utf-8';
+    form.uploadDir = path.join(rootDir, 'assets');
+    form.keepExtensions = true;
+    form.maxFieldsSize = 5 * 1024 * 1024 * 1024;     //max file size: 5 GB
+
+    form.parse(req, function(error, fields, files) {
+        if (error) {
+            return that.methods.handleError(error, 500, res);
+        }
+    });
+
+    form.on('file', function(field, file) {
+        //rename the incoming file to the file's name
+        if ( /goods/.test(file.name) ) {
+            fs.rename( file.path, path.join(form.uploadDir, fileNames.goodsFileName) );
+        }
+        else if ( /vehicles/.test(file.name) ) {
+            fs.rename( file.path, path.join(form.uploadDir, fileNames.vehiclesFileName) );
+        }
+        else if ( /engine/.test(file.name) ) {
+            fs.rename( file.path, path.join(form.uploadDir, fileNames.engineTransmissionFileName) );
+        }
+        else if ( /dimensions/.test(file.name) ) {
+            fs.rename( file.path, path.join(form.uploadDir, fileNames.dimensionsCapacityFileName) );
+        }
+        else if ( /exterior/.test(file.name) ) {
+            fs.rename( file.path, path.join(form.uploadDir, fileNames.exteriorFileName) );
+        }
+        else if ( /interior/.test(file.name) ) {
+            fs.rename( file.path, path.join(form.uploadDir, fileNames.interiorFileName) );
+        }
+        else if ( /safety/.test(file.name) ) {
+            fs.rename( file.path, path.join(form.uploadDir, fileNames.safetyFeaturesFileName) );
+        }
+        
+    });
+
+    form.on('progress', function(bytesReceived, bytesExpected) {
+        var percent_complete = (bytesReceived / bytesExpected) * 100;
+        logger.info(percent_complete.toFixed(2));
+    });
+
+    form.on('error', function(error) {
+        logger.error(error);
+        res.end('error');
+    });
+
+    form.on('end', function() {
+        that.models.vehicle.insertVehicles(fileNames, function(error) {
+            if (error) {
+                return that.methods.handleError(error, 500, res);
+            }
+
+            res.end('insertion complete');
+        });
+    });
+    
+};
+
 
 router.methods.handleError = function(error, statusCode, res) {
     logger.error(error.message);
@@ -180,7 +261,9 @@ router.routes = {
         vehicles: router.methods.getVehicles,
         search: router.methods.search
     },
-    post: {},
+    post: {
+        vehicles: router.methods.insertVehicles
+    },
     put: {
         vehicle: router.methods.updateVehicle
     },

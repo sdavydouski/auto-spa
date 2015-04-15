@@ -7,12 +7,14 @@ define([
     'models/vehicle',
     'collections/vehicles',
     'views/vehiclesCollection',
-    'views/vehicleFullInfo'
-    ], function($, _, Backbone, Vehicle, Vehicles, VehiclesCollectionView, VehicleFullInfoView) {
+    'views/vehicleFullInfo',
+    'views/manageDb'
+    ], function($, _, Backbone, Vehicle, Vehicles, VehiclesCollectionView, VehicleFullInfoView, ManageDbView) {
     var AppRouter = Backbone.Router.extend({        
 
         routes: {
             '': 'index',
+            'db': 'manageDb',
             'vehicle/:id': 'getVehicleById',
             'search/vehicle?*query' : 'findVehicles'
         },
@@ -29,6 +31,11 @@ define([
                     console.log('fetch error');
                 }
             });
+        },
+
+        manageDb: function() {
+            var manageDbView = new ManageDbView();
+            manageDbView.render();
         },
 
         getVehicleById: function(id) {

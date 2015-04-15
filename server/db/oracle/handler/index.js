@@ -204,5 +204,46 @@ method.updateVehicle = function(vehicle, callback) {
     });
 };
 
+method.insertVehicles = function(fileNames, callback) {
+    var that = this,
+        _connection,
+        params = {
+            goods_csv_file_name: fileNames.goodsFileName,
+            vehicles_csv_file_name: fileNames.vehiclesFileName,
+            //The maximum length is 30 characters in Oracle
+            engine_trans_csv_file_name: fileNames.engineTransmissionFileName, 
+            dimensions_cap_csv_file_name: fileNames.dimensionsCapacityFileName, 
+            exterior_csv_file_name: fileNames.exteriorFileName, 
+            interior_csv_file_name: fileNames.interiorFileName, 
+            safety_features_csv_file_name: fileNames.safetyFeaturesFileName
+        };
+
+    async.waterfall([
+        function(callback) {
+            that.pool.getConnection(callback);
+        },
+        function(connection, callback) {
+            _connection = connection;
+            connection.execute('begin auto_spa_package.insert_vehicles_from_csv( :goods_csv_file_name, ' +
+                                                                                ':vehicles_csv_file_name, ' +
+                                                                                ':engine_trans_csv_file_name, ' +
+                                                                                ':dimensions_cap_csv_file_name, ' +
+                                                                                ':exterior_csv_file_name, ' +
+                                                                                ':interior_csv_file_name, ' +
+                                                                                ':safety_features_csv_file_name ); end;',
+                                params, callback);
+        },
+        function(result, callback) {
+            _connection.release(callback);
+        }
+        ], function(error) {
+            if (error) {
+                return callback(error);
+            }
+
+            callback(null);
+    });
+};
+
 
 module.exports = Dbhandler;
