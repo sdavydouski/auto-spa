@@ -14,9 +14,16 @@ define([
 
         routes: {
             '': 'index',
+            'page=:pageNumber': 'getVehicles',
             'db': 'manageDb',
             'vehicle/:id': 'getVehicleById',
             'search/vehicle?*query' : 'findVehicles'
+        },
+
+        initialize: function() {
+            this.on('route', function() {
+                $(window).unbind('scroll');
+            })
         },
 
         index: function() {
@@ -24,8 +31,30 @@ define([
 
             vehicles.fetch({                // this makes a call to the server and populates the collection based on the response.
                 success: function() {
-                    var vehiclesViewCollection = new VehiclesCollectionView();
-                    vehiclesViewCollection.render(vehicles);
+                    var vehiclesViewCollection = new VehiclesCollectionView({
+                        collection: vehicles
+                    });
+                    vehiclesViewCollection.render();
+                },
+                error: function() {
+                    console.log('fetch error');
+                }
+            });
+        },
+
+        getVehicles: function(pageNumber) {
+            var vehicles = new Vehicles();
+
+            vehicles.fetch({
+                data: { 
+                    startPage: 1,
+                    endPage: pageNumber
+                },
+                success: function() {
+                    var vehiclesViewCollection = new VehiclesCollectionView({
+                        collection: vehicles
+                    });
+                    vehiclesViewCollection.render(pageNumber);
                 },
                 error: function() {
                     console.log('fetch error');
@@ -44,6 +73,8 @@ define([
             });
             vehicle.fetch({
                 success: function() {
+                    $('html, body').scrollTop(0);
+
                     var vehicleFullInfoView = new VehicleFullInfoView( { model: vehicle } );
                     vehicleFullInfoView.render();
                 },

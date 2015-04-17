@@ -11,6 +11,7 @@ var Db = function(callback) {
     Db.prototype._singletonInstance = this;
 
     oracledb.outFormat = oracledb.OBJECT;
+    oracledb.maxRows = config.db.maxRows;
 
     var that = this;
 

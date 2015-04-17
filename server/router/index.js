@@ -2,6 +2,7 @@ var url = require('url'),
     fs = require('fs'),
     formidable = require('formidable'),
     path = require('path'),
+    config = require('./../../config'),
     rootDir = path.dirname(require.main.filename),
     logger = require('./../utils/logger'), 
     Vehicle = require('./../models/vehicle');
@@ -21,6 +22,7 @@ router.initialize = function(dbhandler, callback) {
 router.serve = function(uri, req, res) {
     logger.debug(req.method + ' ' + uri);
     var array = uri.split('/');         //example: ["", "api", "vehicle", "5"]
+    logger.debug(array);
     switch (req.method) {
         case 'GET':
             if ( this.routes.get[array[2]] ) {
@@ -93,15 +95,21 @@ router.methods.getVehicleFullInfo = function(id, req, res) {
 };
 
 //without explicit ordering (for now)
-router.methods.getVehicles = function(boundaries, req, res) {
+router.methods.getVehicles = function(boundaries, req, res) {   //boundaries are always empty!
     var that = this,
-        boundaries = boundaries || '1-121',
-        array = boundaries.split('-'),
-        startWith = parseInt(array[0]),
-        endWith = parseInt(array[1]);
+        query = url.parse( req.url, true ).query,
+        pageNumber,
+        startWith,
+        endWith;
 
-    if (isNaN(startWith) || isNaN(endWith)) {
-        return that.methods.handleError(new Error("Wrong boundaries!"), 400, res);
+    if ( query.startPage && query.endPage ) {
+        startWith = config.router.vehiclesForPage * ( query.startPage - 1 ) + 1;
+        endWith = config.router.vehiclesForPage * query.endPage;
+    }
+    else {
+        pageNumber = query.page || 1;
+        startWith = config.router.vehiclesForPage * ( pageNumber - 1 ) + 1;
+        endWith = startWith + config.router.vehiclesForPage - 1;
     }
 
     this.models.vehicle.getVehicles(startWith, endWith, function(error, vehicles) {
@@ -109,9 +117,9 @@ router.methods.getVehicles = function(boundaries, req, res) {
             return that.methods.handleError(error, 500, res);
         }
 
-        /*if (vehicles === null) {
+        if (vehicles === null) {
             return that.methods.handleError(new Error("Wrong boundaries!"), 404, res);
-        }*/
+        }
 
         res.setHeader('Content-Type', 'application/json');
         res.end(JSON.stringify(vehicles));
@@ -231,10 +239,15 @@ router.methods.insertVehicles = function(id, req, res) {
     });
 
     form.on('end', function() {
+        var time = Date.now();
         that.models.vehicle.insertVehicles(fileNames, function(error) {
             if (error) {
                 return that.methods.handleError(error, 500, res);
             }
+
+            var delta = Date.now() - time;
+            logger.info('Elapsed time:');
+            logger.info(delta);
 
             res.end('insertion complete');
         });

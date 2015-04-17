@@ -210,7 +210,6 @@ method.insertVehicles = function(fileNames, callback) {
         params = {
             goods_csv_file_name: fileNames.goodsFileName,
             vehicles_csv_file_name: fileNames.vehiclesFileName,
-            //The maximum length is 30 characters in Oracle
             engine_trans_csv_file_name: fileNames.engineTransmissionFileName, 
             dimensions_cap_csv_file_name: fileNames.dimensionsCapacityFileName, 
             exterior_csv_file_name: fileNames.exteriorFileName, 
