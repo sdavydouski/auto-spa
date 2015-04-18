@@ -31,6 +31,7 @@ ul {
     position: fixed;
     width: 100%;
     text-align: center;
+    color: white;
     
     background-color: $topHeader_background_color;
 
@@ -47,7 +48,7 @@ ul {
     }
 
     a {
-        color: black;
+        color: white;
     }
 }
 
@@ -136,14 +137,11 @@ ul {
         display: block;
         cursor: pointer;
         width: 1em;
+        margin-left: 1em;
     }
 
     .saveCancelButtonsRow {
         display: none;
-    }
-
-    .saveButton, .cancelButton {
-        margin-left: 1em;
     }
 
     .listContainer {

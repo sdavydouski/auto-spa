@@ -7,6 +7,7 @@ create or replace package auto_spa_package as
                                       exterior_csv_file_name in varchar2, 
                                       interior_csv_file_name in varchar2, 
                                       safety_features_csv_file_name in varchar2 );
+  procedure delete_vehicle( id in number );
 end auto_spa_package;
 
 /
@@ -460,6 +461,25 @@ create or replace package body auto_spa_package as
     commit;
     
   end insert_vehicles_from_csv;
+  
+  
+  procedure delete_vehicle( id in number )
+  is
+    l_product_id number;
+  begin
+    select product_id_fk into l_product_id from vehicles where vehicle_id = id;
+
+    delete from safety_features_info where vehicle_id = id;
+    delete from interior_info where vehicle_id = id;
+    delete from exterior_info where vehicle_id = id;
+    delete from dimensions_capacity_info where vehicle_id = id;
+    delete from engine_transmission_info where vehicle_id = id;
+    
+    delete from vehicles where vehicle_id = id;
+    delete from goods where product_id = l_product_id;
+    
+    commit;
+  end delete_vehicle;
 
 
 

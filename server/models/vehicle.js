@@ -102,5 +102,15 @@ method.insertVehicles = function(fileNames, callback) {
     });
 };
 
+method.deleteVehicle = function(id, callback) {
+    this.dbhandler.deleteVehicle(id, function(error) {
+        if (error) {
+            return callback(error);
+        }
+
+        callback(null);
+    });
+}
+
 
 module.exports = Vehicle;

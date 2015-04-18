@@ -15,6 +15,7 @@ define([
             'click .editButton': 'switchToEditMode',
             'click .cancelButton': 'cancel',
             'click .saveButton': 'updateModel',
+            'click .deleteButton': 'deleteModel',
             'click li': 'editField'
         },
 
@@ -117,8 +118,19 @@ define([
 
         },
 
-        isNumber: function(string) {
-            return !isNaN(parseFloat(string)) && isFinite(string);
+        deleteModel: function(event) {
+            if ( confirm('Are you sure?') ) {
+                this.model.destroy({
+                    dataType : 'text',  // <-- and we don't return json from the server
+                    success: function() {
+                        console.log('delete');
+                        require('app').router.back();
+                    },
+                    error: function() {
+                        console.log('delete error');
+                    }
+                });
+            }
         }
 
     });

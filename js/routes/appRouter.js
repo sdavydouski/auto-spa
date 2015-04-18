@@ -84,6 +84,7 @@ define([
             });
         },
 
+        //TODO: add pagination
         findVehicles: function(query) {
             var params = this.parseQueryString(query),
                 vehicles = new Vehicles();
@@ -93,13 +94,19 @@ define([
             vehicles.fetch({
                 data: params,
                 success: function() {
-                    var vehiclesViewCollection = new VehiclesCollectionView();
-                    vehiclesViewCollection.render(vehicles);
+                    var vehiclesViewCollection = new VehiclesCollectionView({
+                        collection: vehicles
+                    });
+                    vehiclesViewCollection.render();
                 },
                 error: function() {
                     console.log('fetch error');
                 }
             });
+        },
+
+        back: function() {
+            window.history.back();
         },
 
 

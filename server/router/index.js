@@ -22,7 +22,7 @@ router.initialize = function(dbhandler, callback) {
 router.serve = function(uri, req, res) {
     logger.debug(req.method + ' ' + uri);
     var array = uri.split('/');         //example: ["", "api", "vehicle", "5"]
-    logger.debug(array);
+    
     switch (req.method) {
         case 'GET':
             if ( this.routes.get[array[2]] ) {
@@ -49,8 +49,12 @@ router.serve = function(uri, req, res) {
             }
             break;
         case 'DELETE':
-            logger.debug('DELETE method');
-            res.end();
+            if ( this.routes._delete[array[2]] ) {
+                this.routes._delete[array[2]].call(this, array[3], req, res);
+            }
+            else {
+                this.methods.handleError(new Error('Wrong DELETE method!'), 400, res);
+            }
             break;
         default:
             logger.debug('default method');
@@ -255,6 +259,17 @@ router.methods.insertVehicles = function(id, req, res) {
     
 };
 
+router.methods.deleteVehicle = function(id, req, res) {
+    var that = this;
+    this.models.vehicle.deleteVehicle(parseInt(id), function(error) {
+        if (error) {
+            return that.methods.handleError(error, 500, res);
+        }
+
+        res.end('deletion complete');
+    })
+};
+
 
 router.methods.handleError = function(error, statusCode, res) {
     logger.error(error.message);
@@ -280,7 +295,9 @@ router.routes = {
     put: {
         vehicle: router.methods.updateVehicle
     },
-    _delete: {}
+    _delete: {
+        vehicle: router.methods.deleteVehicle
+    }
 };
 
 

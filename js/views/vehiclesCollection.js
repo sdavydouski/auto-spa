@@ -35,6 +35,10 @@ define([
         loadMoreVehicles: function(event) {
             var that = this;
 
+            if ( /search/.test(Backbone.history.getFragment()) ) {
+                return false;
+            }
+
             if (this.processing) {
                 return false;
             }
