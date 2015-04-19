@@ -5,17 +5,28 @@ define([
     'underscore', 
     'backbone',
     'models/vehicle',
+    'models/client',
     'collections/vehicles',
+    'collections/clients',
     'views/vehiclesCollection',
+    'views/clientsCollection',
     'views/vehicleFullInfo',
     'views/manageDb'
-    ], function($, _, Backbone, Vehicle, Vehicles, VehiclesCollectionView, VehicleFullInfoView, ManageDbView) {
+    ], function($, _, Backbone, Vehicle,
+                                Client, 
+                                Vehicles, 
+                                Clients, 
+                                VehiclesCollectionView,
+                                ClientsCollectionView, 
+                                VehicleFullInfoView, 
+                                ManageDbView) {
     var AppRouter = Backbone.Router.extend({        
 
         routes: {
             '': 'index',
             'page=:pageNumber': 'getVehicles',
             'db': 'manageDb',
+            'clients': 'maganeClients',
             'vehicle/:id': 'getVehicleById',
             'search/vehicle?*query' : 'findVehicles'
         },
@@ -67,6 +78,22 @@ define([
             manageDbView.render();
         },
 
+        maganeClients: function() {
+            var clients = new Clients();
+
+            clients.fetch({
+                success: function() {
+                    var clientsViewCollection = new ClientsCollectionView({
+                        collection: clients
+                    });
+                    clientsViewCollection.render();
+                },
+                error: function() {
+                    console.log('fetch error');
+                }
+            });
+        },
+
         getVehicleById: function(id) {
             var vehicle = new Vehicle({
                 id: id
@@ -108,7 +135,6 @@ define([
         back: function() {
             window.history.back();
         },
-
 
         parseQueryString: function(queryString) {
             var params = { };

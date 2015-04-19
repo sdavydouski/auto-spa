@@ -5,7 +5,8 @@ var url = require('url'),
     config = require('./../../config'),
     rootDir = path.dirname(require.main.filename),
     logger = require('./../utils/logger'), 
-    Vehicle = require('./../models/vehicle');
+    Vehicle = require('./../models/vehicle'),
+    Client = require('./../models/Client');
 
 
 var router = {};
@@ -14,6 +15,7 @@ router.models = {};
 
 router.initialize = function(dbhandler, callback) {
     this.models.vehicle = new Vehicle(dbhandler);
+    this.models.client = new Client(dbhandler);
     //no async operation yet
     callback(null, 1);
 };
@@ -130,6 +132,38 @@ router.methods.getVehicles = function(boundaries, req, res) {   //boundaries are
     })
 };
 
+router.methods.getClients = function(boundaries, req, res) {
+    var that = this,
+        query = url.parse( req.url, true ).query,
+        pageNumber,
+        startWith,
+        endWith;
+
+    //put in a function?
+    if ( query.startPage && query.endPage ) {
+        startWith = config.router.clientsForPage * ( query.startPage - 1 ) + 1;
+        endWith = config.router.clientsForPage * query.endPage;
+    }
+    else {
+        pageNumber = query.page || 1;
+        startWith = config.router.clientsForPage * ( pageNumber - 1 ) + 1;
+        endWith = startWith + config.router.clientsForPage - 1;
+    }
+
+    this.models.client.getClients(startWith, endWith, function(error, clients) {
+        if (error) {
+            return that.methods.handleError(error, 500, res);
+        }
+
+        if (clients === null) {
+            return that.methods.handleError(new Error("Wrong boundaries!"), 404, res);
+        }
+
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify(clients));
+    })
+};
+
 
 router.methods.search = function(type, req, res) {
     var data = url.parse(req.url, true).query,
@@ -233,8 +267,8 @@ router.methods.insertVehicles = function(id, req, res) {
     });
 
     form.on('progress', function(bytesReceived, bytesExpected) {
-        var percent_complete = (bytesReceived / bytesExpected) * 100;
-        logger.info(percent_complete.toFixed(2));
+        var percentComplete = (bytesReceived / bytesExpected) * 100;
+        //logger.info(percentComplete.toFixed(2));
     });
 
     form.on('error', function(error) {
@@ -287,6 +321,7 @@ router.routes = {
         //vehicle: router.methods.getVehicleById,
         vehicle: router.methods.getVehicleFullInfo,
         vehicles: router.methods.getVehicles,
+        clients: router.methods.getClients,
         search: router.methods.search
     },
     post: {

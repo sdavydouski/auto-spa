@@ -123,7 +123,6 @@ define([
                 this.model.destroy({
                     dataType : 'text',  // <-- and we don't return json from the server
                     success: function() {
-                        console.log('delete');
                         require('app').router.back();
                     },
                     error: function() {

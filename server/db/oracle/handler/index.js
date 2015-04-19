@@ -66,6 +66,36 @@ method.getVehicles = function(startWith, endWith, callback) {
     });
 };
 
+method.getClients = function(startWith, endWith, callback) {
+    var that = this,
+        _connection,
+        _result;
+
+    async.waterfall([
+        function(callback) {
+            that.pool.getConnection(callback);
+        },
+        function(connection, callback) {
+            _connection = connection;
+            connection.execute('select * ' +
+                                    'from ( select a.*, rownum as rnum ' +
+                                        'from ( select * from clients order by client_id ) a ' +
+                                    'where rownum <= :endWith ) ' +
+                                'where rnum >= :startWith', { startWith: startWith, endWith: endWith }, callback);
+        },
+        function(result, callback) {
+            _result = result;
+            _connection.release(callback);
+        }
+        ], function(error) {
+            if (error) {
+                return callback(error);
+            }
+
+            callback(null, _result);
+    });
+};
+
 method.getVehicleFullInfo = function(id, callback) {
     var that = this,
         _connection,
