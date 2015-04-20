@@ -42,5 +42,15 @@ method.updateClient = function(client, callback) {
     });
 };
 
+method.deleteClient = function(id, callback) {
+    this.dbhandler.deleteClient(id, function(error) {
+        if (error) {
+            return callback(error);
+        }
+
+        callback(null);
+    });
+};
+
 
 module.exports = Client;

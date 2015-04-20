@@ -110,7 +110,7 @@ method.deleteVehicle = function(id, callback) {
 
         callback(null);
     });
-}
+};
 
 
 module.exports = Vehicle;

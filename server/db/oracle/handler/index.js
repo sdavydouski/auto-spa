@@ -353,6 +353,31 @@ method.deleteVehicle = function(id, callback) {
 
             callback(null);
     });
+};
+
+method.deleteClient = function(id, callback) {
+    var that = this,
+        _connection;
+
+    async.waterfall([
+        function(callback) {
+            that.pool.getConnection(callback);
+        },
+        function(connection, callback) {
+            _connection = connection;
+            connection.execute('begin auto_spa_package.delete_client( :id ); end;',
+                                { id: id }, callback);
+        },
+        function(result, callback) {
+            _connection.release(callback);
+        }
+        ], function(error) {
+            if (error) {
+                return callback(error);
+            }
+
+            callback(null);
+    });
 }
 
 

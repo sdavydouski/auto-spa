@@ -11,6 +11,7 @@ define([
             'click .editClientButton': 'editClient',
             'click .cancelClientButton': 'cancelEdit',
             'click .saveClientButton': 'updateModel',
+            'click .deleteClientButton': 'deleteModel',
             'click td': 'editField'
         },
 
@@ -112,7 +113,24 @@ define([
                 this.$el.find('.deleteClientButton').css('display', 'inline-block');
                 this.$el.find('.saveClientButton').css('display', 'none');
             }
+        },
+
+        deleteModel: function(event) {
+            if ( confirm('Are you sure?') ) {
+                var that = this;
+                this.model.destroy({
+                    dataType : 'text',  // <-- and we don't return json from the server
+                    success: function() {
+                        console.log('delete success');
+                        that.$el.remove();
+                    },
+                    error: function() {
+                        console.log('delete error');
+                    }
+                });
+            }
         }
+
     });
 
     return ClientView;
