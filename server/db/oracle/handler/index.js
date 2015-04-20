@@ -128,6 +128,30 @@ method.insertClient = function(client, callback) {
     });
 };
 
+method.updateClient = function(client, callback) {
+    var that = this,
+        _connection;
+
+    async.waterfall([
+        function(callback) {
+            that.pool.getConnection(callback);
+        },
+        function(connection, callback) {
+            _connection = connection;
+            connection.execute('begin auto_spa_package.update_client( :client ); end;', { client: client }, callback);
+        },
+        function(result, callback) {
+            _connection.release(callback);
+        }
+        ], function(error) {
+            if (error) {
+                return callback(error);
+            }
+
+            callback(null);
+    });
+};
+
 method.getVehicleFullInfo = function(id, callback) {
     var that = this,
         _connection,

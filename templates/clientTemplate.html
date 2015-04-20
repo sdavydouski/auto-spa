@@ -2,20 +2,26 @@
 
     <tr>
         <th scope="row"><%= client_id %></th>
-        <td><%= first_name %></td>
-        <td><%= last_name %></td>
-        <td><%= phone %></td>
-        <td><%= delivery %></td>
-        <td><%= cash %></td>
-        <td><%= credit %></td>
-        <td><%= country %></td>
-        <td><%= city %></td>
-        <td><%= address %></td>
-        <td><%= passport %></td>
-        <td><%= email %></td>
-        <td><%= skype %></td>
-        <td><span class="glyphicon glyphicon-edit" title="Edit" aria-hidden="true"></span></td>
-        <td><span class="glyphicon glyphicon-trash" title="Delete" aria-hidden="true"></span></td>
+        <td data-attr="first_name"><%= first_name %></td>
+        <td data-attr="last_name"><%= last_name %></td>
+        <td data-attr="phone"><%= phone %></td>
+        <td data-attr="delivery"><%= delivery %></td>
+        <td data-attr="cash"><%= cash %></td>
+        <td data-attr="credit"><%= credit %></td>
+        <td data-attr="country"><%= country %></td>
+        <td data-attr="city"><%= city %></td>
+        <td data-attr="address"><%= address %></td>
+        <td data-attr="passport"><%= passport %></td>
+        <td data-attr="email"><%= email %></td>
+        <td data-attr="skype"><%= skype %></td>
+        <th>
+            <span class="glyphicon glyphicon-edit editClientButton controlButton" title="Edit" aria-hidden="true"></span>
+            <span class="glyphicon glyphicon-remove cancelClientButton controlButton" title="Cancel" aria-hidden="true"></span>
+        </th>
+        <th>
+            <span class="glyphicon glyphicon-trash deleteClientButton controlButton" title="Delete" aria-hidden="true"></span>
+            <span class="glyphicon glyphicon-floppy-disk saveClientButton controlButton" title="Save" aria-hidden="true"></span>
+        </th>
     </tr>
     
 </script>

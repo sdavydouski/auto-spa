@@ -18,10 +18,6 @@ define([
             'click .createClientButton': 'saveClient'
         },
 
-        initialize: function() {
-            
-        },
-
         render: function() {
             var clientsCollectionHtml = this.collection.map(function(client) {
                return new ClientView( { model: client } ).render().el;

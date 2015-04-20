@@ -258,6 +258,18 @@ ul {
         cursor: pointer;
     }
 
+    .controlButton {
+        cursor: pointer;
+    }
+
+    .editInput {
+        
+    }
+
+    .cancelClientButton, .saveClientButton {
+        display: none;
+    }
+
     .overlay {
         background-color: rgba(0, 0, 0, 0.6);
         bottom: 0;

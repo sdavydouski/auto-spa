@@ -32,5 +32,15 @@ method.insertClient = function(client, callback) {
     });
 };
 
+method.updateClient = function(client, callback) {
+    this.dbhandler.updateClient(client, function(error) {
+        if (error) {
+            return callback(error);
+        }
+
+        callback(null);
+    });
+};
+
 
 module.exports = Client;

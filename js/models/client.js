@@ -5,7 +5,8 @@ define([
     'backbone'
     ], function(_, Backbone) {
     var Client = Backbone.Model.extend({
-        urlRoot: '/api/client'
+        urlRoot: '/api/client',
+        idAttribute: 'client_id'
     });
 
     return Client;

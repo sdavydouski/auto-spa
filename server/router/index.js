@@ -192,6 +192,33 @@ router.methods.insertClient = function(id, req, res) {  //id ?
 
 };
 
+router.methods.updateClient = function(id, req, res) {
+    var body = '',
+        that = this;
+
+    req.on('data', function(data) {
+        body += data;
+
+        // Too much data, kill the connection!
+        if (body.length > 1e6) {
+            req.connection.destroy();
+        }
+    });
+
+    req.on('end', function() {
+
+        that.models.client.updateClient(body, function(error) {
+            if (error) {
+                return that.methods.handleError(error, 500, res);
+            }
+
+            res.end('client updated');
+        });
+
+    });
+
+};
+
 
 router.methods.search = function(type, req, res) {
     var data = url.parse(req.url, true).query,
@@ -357,7 +384,8 @@ router.routes = {
         client: router.methods.insertClient
     },
     put: {
-        vehicle: router.methods.updateVehicle
+        vehicle: router.methods.updateVehicle,
+        client: router.methods.updateClient
     },
     _delete: {
         vehicle: router.methods.deleteVehicle
