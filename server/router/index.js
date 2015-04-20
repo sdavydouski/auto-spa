@@ -6,7 +6,7 @@ var url = require('url'),
     rootDir = path.dirname(require.main.filename),
     logger = require('./../utils/logger'), 
     Vehicle = require('./../models/vehicle'),
-    Client = require('./../models/Client');
+    Client = require('./../models/client');
 
 
 var router = {};
@@ -162,6 +162,33 @@ router.methods.getClients = function(boundaries, req, res) {
         res.setHeader('Content-Type', 'application/json');
         res.end(JSON.stringify(clients));
     })
+};
+
+router.methods.insertClient = function(id, req, res) {  //id ?
+    var body = '',
+        that = this;
+
+    req.on('data', function(data) {
+        body += data;
+
+        // Too much data, kill the connection!
+        if (body.length > 1e6) {
+            req.connection.destroy();
+        }
+    });
+
+    req.on('end', function() {
+
+        that.models.client.insertClient(body, function(error) {
+            if (error) {
+                return that.methods.handleError(error, 500, res);
+            }
+
+            res.end('ok');
+        });
+
+    });
+
 };
 
 
@@ -325,7 +352,8 @@ router.routes = {
         search: router.methods.search
     },
     post: {
-        vehicles: router.methods.insertVehicles
+        vehicles: router.methods.insertVehicles,
+        client: router.methods.insertClient
     },
     put: {
         vehicle: router.methods.updateVehicle

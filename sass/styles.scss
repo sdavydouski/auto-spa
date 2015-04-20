@@ -249,3 +249,64 @@ ul {
 
     }
 }
+
+.clientsInfo {
+
+    .newClientButton {
+        display: inline-block;
+        margin: 1em;
+        cursor: pointer;
+    }
+
+    .overlay {
+        background-color: rgba(0, 0, 0, 0.6);
+        bottom: 0;
+        cursor: default;
+        left: 0;
+        opacity: 0;
+        position: fixed;
+        right: 0;
+        top: 0;
+        visibility: hidden;
+        z-index: 1;
+        transition: opacity .5s;
+    }
+    .overlay:target {
+        visibility: visible;
+        opacity: 1;
+    }
+    .popup {
+        width: 60%;
+        max-height: 90%;
+        background-color: #fff;
+        border: 3px solid #fff;
+        display: inline-block;
+        top: 40%;
+        left: 50%;                              
+        transform: translate(-50%, -50%);       
+        color:#666;
+        opacity: 0;
+        padding: 15px;
+        position: fixed;
+        text-align: justify;
+        visibility: hidden;
+        z-index: 10;
+        border-radius: 10px;
+        box-shadow: 0 1px 1px 2px rgba(0, 0, 0, 0.4) inset;
+        transition: opacity .5s, top .5s;
+        overflow: auto;
+    }
+    .overlay:target+.popup {
+        top: 50%;
+        opacity: 1;
+        visibility: visible;
+    }
+
+    #skypeInput {
+        margin-bottom: 1em;
+    }
+
+    .clientsValidBlock {
+        display: none;
+    }
+}

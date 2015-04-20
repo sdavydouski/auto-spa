@@ -34,7 +34,8 @@ define([
         initialize: function() {
             this.on('route', function() {
                 $(window).unbind('scroll');
-            })
+                $('.topLine').css('display', 'none');
+            });
         },
 
         index: function() {

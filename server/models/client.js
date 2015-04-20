@@ -22,5 +22,15 @@ method.getClients = function(startWith, endWith, callback) {
     });
 };
 
+method.insertClient = function(client, callback) {
+    this.dbhandler.insertClient(client, function(error) {
+        if (error) {
+            return callback(error);
+        }
+
+        callback(null);
+    });
+};
+
 
 module.exports = Client;
