@@ -9,6 +9,7 @@ create or replace package auto_spa_package as
                                       safety_features_csv_file_name in varchar2 );
   procedure delete_vehicle( id in number );
   procedure insert_client( client in varchar2, generated_client_id out number );
+  procedure update_client( client in varchar2 );
 end auto_spa_package;
 
 /
@@ -507,6 +508,31 @@ create or replace package body auto_spa_package as
     commit;
     
   end insert_client;
+
+
+  procedure update_client( client in varchar2 )
+  is
+    l_obj json;
+  begin
+    l_obj := json(client);
+
+    update clients set  first_name = json_ext.get_string(l_obj, 'first_name'), 
+                        last_name = json_ext.get_string(l_obj, 'last_name'), 
+                        phone = json_ext.get_string(l_obj, 'phone'), 
+                        delivery = json_ext.get_number(l_obj, 'delivery'), 
+                        cash = json_ext.get_number(l_obj, 'cash'), 
+                        credit = json_ext.get_number(l_obj, 'credit'), 
+                        country = json_ext.get_string(l_obj, 'country'), 
+                        city = json_ext.get_string(l_obj, 'city'), 
+                        address = json_ext.get_string(l_obj, 'address'), 
+                        passport = json_ext.get_string(l_obj, 'passport'), 
+                        email = json_ext.get_string(l_obj, 'email'), 
+                        skype = json_ext.get_string(l_obj, 'skype') 
+    where client_id = json_ext.get_number(l_obj, 'client_id');
+    
+    commit;
+    
+  end update_client;
 
 
 
