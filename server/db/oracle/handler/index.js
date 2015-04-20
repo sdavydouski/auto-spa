@@ -1,4 +1,5 @@
 var db = require('./../../oracle'),
+    oracledb = require('oracledb'),
     async = require('async');
 
 function Dbhandler(pool) {
@@ -98,7 +99,8 @@ method.getClients = function(startWith, endWith, callback) {
 
 method.insertClient = function(client, callback) {
     var that = this,
-        _connection;
+        _connection,
+        _result;
 
     async.waterfall([
         function(callback) {
@@ -106,9 +108,15 @@ method.insertClient = function(client, callback) {
         },
         function(connection, callback) {
             _connection = connection;
-            connection.execute('begin auto_spa_package.insert_client( :client ); end;', { client: client }, callback);
+            connection.execute('begin auto_spa_package.insert_client( :client, :generated_client_id ); end;', 
+                { 
+                    client: client, 
+                    generated_client_id: { type: oracledb.NUMBER, dir: oracledb.BIND_OUT } 
+                }, 
+                callback);
         },
         function(result, callback) {
+            _result = result;
             _connection.release(callback);
         }
         ], function(error) {
@@ -116,7 +124,7 @@ method.insertClient = function(client, callback) {
                 return callback(error);
             }
 
-            callback(null);
+            callback(null, _result);
     });
 };
 

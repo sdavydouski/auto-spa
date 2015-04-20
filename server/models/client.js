@@ -23,12 +23,12 @@ method.getClients = function(startWith, endWith, callback) {
 };
 
 method.insertClient = function(client, callback) {
-    this.dbhandler.insertClient(client, function(error) {
+    this.dbhandler.insertClient(client, function(error, result) {
         if (error) {
             return callback(error);
         }
 
-        callback(null);
+        callback(null, result.outBinds.generated_client_id);
     });
 };
 

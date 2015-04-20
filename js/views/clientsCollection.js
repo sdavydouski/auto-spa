@@ -44,7 +44,8 @@ define([
                 data = form.serializeArray(),    //[ {name, value}, ... ]
                 //first three inputs must be filled (firstName, lastName and phone)
                 isValid = data[0].value != '' && data[1].value != '' && data[2].value != '',
-                modelData = {};
+                modelData = {},
+                that = this;
 
             if (!isValid) {
                 this.$el.find('.clientsValidBlock').css('display', 'block');
@@ -79,10 +80,11 @@ define([
 
             var newClient = new Client(modelData);
             newClient.save(null, {
-                dataType : 'text',  // <-- and we don't return json from the server
-                success: function() {
+                success: function(client) {
                     console.log('success');
-                    require('app').router.navigate('clients', { trigger: true });
+                    that.collection.push(client);
+                    that.$el.find('tbody').append( new ClientView( { model: client } ).render().el );
+                    require('app').router.navigate('clients');
                 },
                 error: function() {
                     console.log('error');

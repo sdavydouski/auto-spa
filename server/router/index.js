@@ -179,12 +179,13 @@ router.methods.insertClient = function(id, req, res) {  //id ?
 
     req.on('end', function() {
 
-        that.models.client.insertClient(body, function(error) {
+        that.models.client.insertClient(body, function(error, client_id) {
             if (error) {
                 return that.methods.handleError(error, 500, res);
             }
 
-            res.end('ok');
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify( { client_id: client_id } ));
         });
 
     });

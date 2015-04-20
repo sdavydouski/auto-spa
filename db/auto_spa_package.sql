@@ -8,7 +8,7 @@ create or replace package auto_spa_package as
                                       interior_csv_file_name in varchar2, 
                                       safety_features_csv_file_name in varchar2 );
   procedure delete_vehicle( id in number );
-  procedure insert_client( client in varchar2 );
+  procedure insert_client( client in varchar2, generated_client_id out number );
 end auto_spa_package;
 
 /
@@ -483,15 +483,15 @@ create or replace package body auto_spa_package as
   end delete_vehicle;
 
 
-  procedure insert_client( client in varchar2 )
+  procedure insert_client( client in varchar2, generated_client_id out number )
   is
     l_obj json;
   begin
     l_obj := json(client);
 
     insert into clients (first_name, last_name, phone, delivery, cash, credit, country, city, address, passport, email, skype)
-    values ( json_ext.get_string(l_obj, 'firstName'), 
-             json_ext.get_string(l_obj, 'lastName'), 
+    values ( json_ext.get_string(l_obj, 'first_name'), 
+             json_ext.get_string(l_obj, 'last_name'), 
              json_ext.get_string(l_obj, 'phone'), 
              json_ext.get_number(l_obj, 'delivery'), 
              json_ext.get_number(l_obj, 'cash'), 
@@ -501,7 +501,8 @@ create or replace package body auto_spa_package as
              json_ext.get_string(l_obj, 'address'), 
              json_ext.get_string(l_obj, 'passport'), 
              json_ext.get_string(l_obj, 'email'), 
-             json_ext.get_string(l_obj, 'skype'));
+             json_ext.get_string(l_obj, 'skype'))
+    returning client_id into generated_client_id;
     
     commit;
     
