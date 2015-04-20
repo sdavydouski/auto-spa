@@ -10,6 +10,7 @@ create or replace package auto_spa_package as
   procedure delete_vehicle( id in number );
   procedure insert_client( client in varchar2, generated_client_id out number );
   procedure update_client( client in varchar2 );
+  procedure delete_client( id in number );
 end auto_spa_package;
 
 /
@@ -533,6 +534,16 @@ create or replace package body auto_spa_package as
     commit;
     
   end update_client;
+
+
+  procedure delete_client( id in number )
+  as
+  begin
+    
+    delete from clients where client_id = id;
+    commit;
+    
+  end delete_client;
 
 
 

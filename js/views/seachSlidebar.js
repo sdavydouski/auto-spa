@@ -20,7 +20,7 @@ define([
 
         initialize: function() {
             var that = this,
-                regexp = /(vehicle\/\d)|(db)/;
+                regexp = /(vehicle\/\d)|(db)|(clients)/;
 
             require('app').proxy.on('openSearchSlidebar', function() {
                 if ( regexp.test(Backbone.history.getFragment()) ) {

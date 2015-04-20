@@ -14,7 +14,7 @@ define([
         template: _.template($('#clientsCollectionTemplate').html()),
 
         events: {
-            'click .cancelClientButton': 'returnToClientsTable',
+            'click .cancelClientFormButton': 'returnToClientsTable',
             'click .createClientButton': 'saveClient'
         },
 
