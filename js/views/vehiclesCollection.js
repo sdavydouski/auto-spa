@@ -10,7 +10,12 @@ define([
         tagname: 'section',
         className: 'vehiclesCollection',
 
-        initialize: function() {
+        initialize: function(options) {
+            if (options.isClient) {
+                //we do not need pagination setup when view client's vehicles
+                return;
+            }
+
             var that = this;
             this.pageNumber = 2;
             this.processing = false;
@@ -19,6 +24,7 @@ define([
                 var vehiclesCollectionHtml = that.getVehicleCollectionHtml();
                 that.$el.append( vehiclesCollectionHtml );
             });
+
 
             _.bindAll(this, 'loadMoreVehicles');
             // bind to window
@@ -70,10 +76,17 @@ define([
         },
 
         getVehicleCollectionHtml: function() {
-            return this.collection.map(function(vehicle) {
+            if (this.collection.size() > 0) {
+                return this.collection.map(function(vehicle) {
                        return new VehicleView( { model: vehicle } ).render().el;
                    });
+            }
+            else {
+                //should return something funny, but life is not a bed of roses
+                return 'Empty';
+            }
         }
+
     });
 
     return VehiclesViewCollection;

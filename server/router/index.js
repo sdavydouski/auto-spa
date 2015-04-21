@@ -108,9 +108,22 @@ router.methods.getVehicles = function(boundaries, req, res) {   //boundaries are
         query = url.parse( req.url, true ).query,
         pageNumber,
         startWith,
-        endWith;
+        endWith,
+        callback = function(error, vehicles) {
+            if (error) {
+                return that.methods.handleError(error, 500, res);
+            }
 
-    if ( query.startPage && query.endPage ) {
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify(vehicles));
+        };
+
+
+    if ( query.clientId ) {
+        this.models.vehicle.getClientVehicles(+query.clientId, callback);
+        return;
+    }
+    else if ( query.startPage && query.endPage ) {
         startWith = config.router.vehiclesForPage * ( query.startPage - 1 ) + 1;
         endWith = config.router.vehiclesForPage * query.endPage;
     }
@@ -120,18 +133,7 @@ router.methods.getVehicles = function(boundaries, req, res) {   //boundaries are
         endWith = startWith + config.router.vehiclesForPage - 1;
     }
 
-    this.models.vehicle.getVehicles(startWith, endWith, function(error, vehicles) {
-        if (error) {
-            return that.methods.handleError(error, 500, res);
-        }
-
-        if (vehicles === null) {
-            return that.methods.handleError(new Error("Wrong boundaries!"), 404, res);
-        }
-
-        res.setHeader('Content-Type', 'application/json');
-        res.end(JSON.stringify(vehicles));
-    })
+    this.models.vehicle.getVehicles(startWith, endWith, callback);
 };
 
 router.methods.getClients = function(boundaries, req, res) {

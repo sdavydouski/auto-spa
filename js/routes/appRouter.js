@@ -27,6 +27,7 @@ define([
             'page=:pageNumber': 'getVehicles',
             'db': 'manageDb',
             'clients?productId=:productId': 'assignVehicleToClient',
+            'vehicles?clientId=:clientId': 'getClientVehicles',
             'clients': 'maganeClients',
             'vehicle/:id': 'getVehicleById',
             'search/vehicle?*query' : 'findVehicles'
@@ -105,6 +106,26 @@ define([
                         collection: clients
                     });
                     clientsViewCollection.render(productId);
+                },
+                error: function() {
+                    console.log('fetch error');
+                }
+            });
+        },
+
+        getClientVehicles: function(clientId) {
+            var vehicles = new Vehicles();
+
+            vehicles.fetch({
+                data: { 
+                    clientId: clientId
+                },
+                success: function() {
+                    var vehiclesViewCollection = new VehiclesCollectionView({
+                        collection: vehicles,
+                        isClient: true
+                    });
+                    vehiclesViewCollection.render();
                 },
                 error: function() {
                     console.log('fetch error');

@@ -13,7 +13,8 @@ define([
             'click .saveClientButton': 'updateModel',
             'click .deleteClientButton': 'deleteModel',
             'click td': 'editField',
-            'click .assignToClient': 'assignVehicleToClient'
+            'click .assignToClient': 'assignVehicleToClient',
+            'click': 'showClientVehicles'
         },
 
         template: _.template($('#clientTemplate').html()),
@@ -37,6 +38,8 @@ define([
             this.toggleButtons();
 
             this.saveFieldValues();
+
+            event.stopPropagation();
         },
 
         saveFieldValues: function() {
@@ -56,6 +59,8 @@ define([
             this.$el.find('td').each(function(index) {
                 $(this).html( that.fieldValues[index] );
             });
+
+            event.stopPropagation();
         },
 
         updateModel: function(event) {
@@ -67,6 +72,8 @@ define([
             this.saveFieldValues();
             
             this.model.save();
+
+            event.stopPropagation();
         },
 
         editField: function(event) {
@@ -100,6 +107,8 @@ define([
                 that.model.set(map);
             });
 
+
+            event.stopPropagation();
         },
 
         toggleButtons: function() {
@@ -133,6 +142,8 @@ define([
                     }
                 });
             }
+
+            event.stopPropagation();
         },
 
         assignVehicleToClient: function() {
@@ -152,6 +163,16 @@ define([
                     console.log('assign error');
                 }
             });
+
+            //event.stopPropagation();      not this time
+        },
+
+        showClientVehicles: function() {
+            if (this.editMode) {
+                return;
+            }
+
+            require('app').router.navigate('/vehicles?clientId=' + this.model.id, { trigger: true });
         }
 
     });

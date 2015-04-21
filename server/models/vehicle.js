@@ -37,6 +37,22 @@ method.getVehicles = function(startWith, endWith, callback) {
     });
 };
 
+method.getClientVehicles = function(clientId, callback) {
+    this.dbhandler.getClientVehicles(clientId, function(error, result) {
+        if (error) {
+            return callback(error);
+        }
+
+        if (result.rows.length > 0) {
+            callback( null, helper.objsInArrayKeysToLowerCase(result.rows) );
+        }
+        else {
+            callback( null, [] );
+        }
+
+    });
+}
+
 /* 
 return:
 

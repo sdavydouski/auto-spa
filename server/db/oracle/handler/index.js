@@ -67,6 +67,34 @@ method.getVehicles = function(startWith, endWith, callback) {
     });
 };
 
+method.getClientVehicles = function(clientId, callback) {
+    var that = this,
+        _connection,
+        _result;
+
+    async.waterfall([
+        function(callback) {
+            that.pool.getConnection(callback);
+        },
+        function(connection, callback) {
+            _connection = connection;
+            connection.execute('select t1.*, t2.* from vehicles t1, goods t2 where t2.client_id = :clientId and t1.product_id_fk = t2.product_id', 
+                                { clientId: clientId }, 
+                                callback);
+        },
+        function(result, callback) {
+            _result = result;
+            _connection.release(callback);
+        }
+        ], function(error) {
+            if (error) {
+                return callback(error);
+            }
+
+            callback(null, _result);
+    });
+};
+
 method.getClients = function(startWith, endWith, callback) {
     var that = this,
         _connection,
