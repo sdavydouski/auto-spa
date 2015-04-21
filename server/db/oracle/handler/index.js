@@ -378,7 +378,32 @@ method.deleteClient = function(id, callback) {
 
             callback(null);
     });
-}
+};
+
+method.assignProductToClient = function(ids, callback) {
+    var that = this,
+        _connection;
+
+    async.waterfall([
+        function(callback) {
+            that.pool.getConnection(callback);
+        },
+        function(connection, callback) {
+            _connection = connection;
+            connection.execute('begin auto_spa_package.assign_product_to_client( :p_client_id, :p_product_id ); end;',
+                                { p_client_id: ids.clientId, p_product_id: ids.productId }, callback);
+        },
+        function(result, callback) {
+            _connection.release(callback);
+        }
+        ], function(error) {
+            if (error) {
+                return callback(error);
+            }
+
+            callback(null);
+    });
+};
 
 
 module.exports = Dbhandler;

@@ -12,7 +12,8 @@ define([
             'click .cancelClientButton': 'cancelEdit',
             'click .saveClientButton': 'updateModel',
             'click .deleteClientButton': 'deleteModel',
-            'click td': 'editField'
+            'click td': 'editField',
+            'click .assignToClient': 'assignVehicleToClient'
         },
 
         template: _.template($('#clientTemplate').html()),
@@ -23,7 +24,10 @@ define([
             this.backupObj = $.extend(true, {}, this.model.attributes);
         },
 
-        render: function() {
+        render: function(productId) {
+            this.model.set({
+                productId: productId
+            });
             this.setElement( this.template(this.model.toJSON()) );
             return this;
         },
@@ -129,6 +133,25 @@ define([
                     }
                 });
             }
+        },
+
+        assignVehicleToClient: function() {
+            var that = this;
+            $.ajax({
+                url: '/api/product',
+                type: 'POST',
+                data: JSON.stringify({
+                    clientId: that.model.id,
+                    productId: +that.model.get('productId')
+                }),
+                contentType: 'application/json',
+                success: function() {
+                    console.log('assign success');
+                },
+                error:function() {
+                    console.log('assign error');
+                }
+            });
         }
 
     });

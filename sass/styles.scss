@@ -132,6 +132,10 @@ ul {
         margin-bottom: 5px;
     }
 
+    .assignVehicleToClientButton {
+        cursor: pointer;
+    }
+
     .controlButton {
         font-size: 24px;
         display: block;
@@ -320,5 +324,13 @@ ul {
 
     .clientsValidBlock {
         display: none;
+    }
+
+    .assignToClient {
+        cursor: pointer;
+
+        &:hover {
+            color: $topHeader_background_color;
+        }
     }
 }

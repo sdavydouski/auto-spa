@@ -26,6 +26,7 @@ define([
             '': 'index',
             'page=:pageNumber': 'getVehicles',
             'db': 'manageDb',
+            'clients?productId=:productId': 'assignVehicleToClient',
             'clients': 'maganeClients',
             'vehicle/:id': 'getVehicleById',
             'search/vehicle?*query' : 'findVehicles'
@@ -88,6 +89,22 @@ define([
                         collection: clients
                     });
                     clientsViewCollection.render();
+                },
+                error: function() {
+                    console.log('fetch error');
+                }
+            });
+        },
+
+        assignVehicleToClient: function(productId) {
+            var clients = new Clients();
+
+            clients.fetch({
+                success: function() {
+                    var clientsViewCollection = new ClientsCollectionView({
+                        collection: clients
+                    });
+                    clientsViewCollection.render(productId);
                 },
                 error: function() {
                     console.log('fetch error');

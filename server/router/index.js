@@ -6,7 +6,8 @@ var url = require('url'),
     rootDir = path.dirname(require.main.filename),
     logger = require('./../utils/logger'), 
     Vehicle = require('./../models/vehicle'),
-    Client = require('./../models/client');
+    Client = require('./../models/client'),
+    Product = require('./../models/product');
 
 
 var router = {};
@@ -16,6 +17,7 @@ router.models = {};
 router.initialize = function(dbhandler, callback) {
     this.models.vehicle = new Vehicle(dbhandler);
     this.models.client = new Client(dbhandler);
+    this.models.product = new Product(dbhandler);
     //no async operation yet
     callback(null, 1);
 };
@@ -369,6 +371,33 @@ router.methods.deleteVehicle = function(id, req, res) {
     })
 };
 
+router.methods.assignProductToClient = function(id, req, res) {
+    var body = '',
+        that = this;
+
+    req.on('data', function(data) {
+        body += data;
+
+        // Too much data, kill the connection!
+        if (body.length > 1e6) {
+            req.connection.destroy();
+        }
+    });
+
+    req.on('end', function() {
+        body = JSON.parse(body);
+
+        that.models.product.assignProductToClient(body, function(error) {
+            if (error) {
+                return that.methods.handleError(error, 500, res);
+            }
+
+            res.end('ok');
+        });
+
+    });
+};
+
 
 router.methods.handleError = function(error, statusCode, res) {
     logger.error(error.message);
@@ -391,7 +420,8 @@ router.routes = {
     },
     post: {
         vehicles: router.methods.insertVehicles,
-        client: router.methods.insertClient
+        client: router.methods.insertClient,
+        product: router.methods.assignProductToClient
     },
     put: {
         vehicle: router.methods.updateVehicle,

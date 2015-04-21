@@ -14,14 +14,27 @@
         <td data-attr="passport"><%= passport %></td>
         <td data-attr="email"><%= email %></td>
         <td data-attr="skype"><%= skype %></td>
-        <th>
-            <span class="glyphicon glyphicon-edit editClientButton controlButton" title="Edit" aria-hidden="true"></span>
-            <span class="glyphicon glyphicon-remove cancelClientButton controlButton" title="Cancel" aria-hidden="true"></span>
-        </th>
-        <th>
-            <span class="glyphicon glyphicon-trash deleteClientButton controlButton" title="Delete" aria-hidden="true"></span>
-            <span class="glyphicon glyphicon-floppy-disk saveClientButton controlButton" title="Save" aria-hidden="true"></span>
-        </th>
+
+        <% if (typeof productId !== 'undefined') { %>
+
+            <th colspan="2">
+                <span class="assignToClient">Assign</span>
+            </th>
+
+        <% } else { %>
+
+            <th>
+                <span class="glyphicon glyphicon-edit editClientButton controlButton" title="Edit" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-remove cancelClientButton controlButton" title="Cancel" aria-hidden="true"></span>
+            </th>
+            <th>
+                <span class="glyphicon glyphicon-trash deleteClientButton controlButton" title="Delete" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-floppy-disk saveClientButton controlButton" title="Save" aria-hidden="true"></span>
+            </th>
+
+        <%  } %>
+
+        
     </tr>
     
 </script>

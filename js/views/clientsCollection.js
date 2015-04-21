@@ -18,12 +18,12 @@ define([
             'click .createClientButton': 'saveClient'
         },
 
-        render: function() {
+        render: function(productId) {
             var clientsCollectionHtml = this.collection.map(function(client) {
-               return new ClientView( { model: client } ).render().el;
+               return new ClientView( { model: client } ).render( productId ).el;
             });
 
-            this.$el.append( this.template() );
+            this.$el.append( this.template( { hash: Backbone.history.getFragment() } ) );
             
             this.$el.find('tbody').append( clientsCollectionHtml );
             $('.mainContent').html( this.$el );
@@ -31,7 +31,7 @@ define([
         },
 
         returnToClientsTable: function(event) {
-            require('app').router.navigate('clients');
+            require('app').router.back();
         },
 
         saveClient: function(event) {
@@ -80,7 +80,7 @@ define([
                     console.log('success');
                     that.collection.push(client);
                     that.$el.find('tbody').append( new ClientView( { model: client } ).render().el );
-                    require('app').router.navigate('clients');
+                    require('app').router.back();
                 },
                 error: function() {
                     console.log('error');
