@@ -12,7 +12,7 @@ define([
 
         initialize: function(options) {
             if (options.isClient) {
-                //we do not need pagination setup when view client's vehicles
+                //we do not need pagination setup when viewing client's vehicles
                 return;
             }
 

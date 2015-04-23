@@ -120,8 +120,7 @@ router.methods.getVehicles = function(boundaries, req, res) {   //boundaries are
 
 
     if ( query.clientId ) {
-        this.models.vehicle.getClientVehicles(+query.clientId, callback);
-        return;
+        return this.models.vehicle.getClientVehicles(+query.clientId, callback);
     }
     else if ( query.startPage && query.endPage ) {
         startWith = config.router.vehiclesForPage * ( query.startPage - 1 ) + 1;
@@ -134,6 +133,22 @@ router.methods.getVehicles = function(boundaries, req, res) {   //boundaries are
     }
 
     this.models.vehicle.getVehicles(startWith, endWith, callback);
+};
+
+router.methods.getClientById = function(id, req, res) {
+    var that = this;
+    this.models.client.getClientById(parseInt(id), function(error, client) {
+        if (error) {
+            return that.methods.handleError(error, 500, res);
+        }
+
+        if (client === null) {
+            return that.methods.handleError(new Error("Entry with such id doesn't exist!"), 404, res);
+        }
+
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify(client));
+    })
 };
 
 router.methods.getClients = function(boundaries, req, res) {
@@ -400,6 +415,33 @@ router.methods.assignProductToClient = function(id, req, res) {
     });
 };
 
+router.methods.removeProductFromClient = function(id, req, res) {       //id is empty
+    var body = '',
+        that = this;
+
+    req.on('data', function(data) {
+        body += data;
+
+        // Too much data, kill the connection!
+        if (body.length > 1e6) {
+            req.connection.destroy();
+        }
+    });
+
+    req.on('end', function() {
+        body = JSON.parse(body);
+
+        that.models.product.removeProductFromClient(body, function(error) {
+            if (error) {
+                return that.methods.handleError(error, 500, res);
+            }
+
+            res.end('ok');
+        });
+
+    });
+};
+
 
 router.methods.handleError = function(error, statusCode, res) {
     logger.error(error.message);
@@ -417,6 +459,7 @@ router.routes = {
         //vehicle: router.methods.getVehicleById,
         vehicle: router.methods.getVehicleFullInfo,
         vehicles: router.methods.getVehicles,
+        client: router.methods.getClientById,
         clients: router.methods.getClients,
         search: router.methods.search
     },
@@ -431,7 +474,8 @@ router.routes = {
     },
     _delete: {
         vehicle: router.methods.deleteVehicle,
-        client: router.methods.deleteClient
+        client: router.methods.deleteClient,
+        product: router.methods.removeProductFromClient
     }
 };
 

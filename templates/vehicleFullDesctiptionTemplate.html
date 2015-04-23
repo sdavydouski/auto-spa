@@ -1,12 +1,22 @@
 <script id='vehicleFullDesctiptionTemplate' type='text/template'>
 
+    <a href="#<%= hash %>" class="overlay" id="popup"></a>
+    
+    <div class="popup">
+        
+    </div>
+
     <h2 class="vehicleTopTitle"><%= general.manufacturer + ' ' + general.model %></h2>
     <div class="fullDescription container-fluid">
 
         <div class="row editButtonRow">
             
-            <a href="#clients?productId=<%= product.product_id %>" class="col-xs-2 col-sm-1 assignVehicleToClientButton">Assign Vehicle</a>
-            <div class="col-xs-6 col-sm-9"></div>
+            <% if (product.client_id === null) { %>
+                <a href="#clients?productId=<%= product.product_id %>" class="col-xs-3 col-sm-2 assignVehicleToClientButton">Assign Vehicle</a>
+            <% } else { %>
+                <a href="#popup" id="show_popup" class="col-xs-3 col-sm-2 vehicleOwnerInfoButton">Client Info</a>
+            <% } %>
+            <div class="col-xs-5 col-sm-8"></div>
             <span class="glyphicon glyphicon-edit editButton controlButton col-xs-2 col-sm-1" title="Edit" aria-hidden="true"></span>
             <span class="glyphicon glyphicon-trash deleteButton controlButton col-xs-2 col-sm-1" title="Delete" aria-hidden="true"></span>
         </div>
@@ -161,4 +171,6 @@
         </div>
         
     </div>
+
+
 </script>

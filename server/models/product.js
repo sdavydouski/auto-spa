@@ -16,5 +16,15 @@ method.assignProductToClient = function(ids, callback) {
     });
 };
 
+method.removeProductFromClient = function(ids, callback) {
+    this.dbhandler.removeProductFromClient(ids, function(error) {
+        if (error) {
+            return callback(error);
+        }
+
+        callback(null);
+    });
+};
+
 
 module.exports = Product;

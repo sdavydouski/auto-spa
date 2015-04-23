@@ -6,6 +6,21 @@ function Client(dbhandler) {
 
 var method = Client.prototype;
 
+method.getClientById = function(id, callback) {
+    this.dbhandler.getClientById(id, function(error, result) {
+        if (error) {
+            return callback(error);
+        }
+
+        if (result.rows.length > 0) {
+            callback( null, helper.objKeysToLowerCase(result.rows[0]) );
+        }
+        else {
+            callback( null, null );
+        }
+    });
+};
+
 method.getClients = function(startWith, endWith, callback) {
     this.dbhandler.getClients(startWith, endWith, function(error, result) {
         if (error) {

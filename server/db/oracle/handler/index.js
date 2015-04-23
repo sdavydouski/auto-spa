@@ -95,6 +95,32 @@ method.getClientVehicles = function(clientId, callback) {
     });
 };
 
+method.getClientById = function(id, callback) {
+    var that = this,
+        _connection,
+        _result;
+    
+    async.waterfall([
+        function(callback) {
+            that.pool.getConnection(callback);
+        },
+        function(connection, callback) {
+            _connection = connection;
+            connection.execute('select * from clients where client_id = :id', { id: id }, callback);
+        },
+        function(result, callback) {
+            _result = result;
+            _connection.release(callback);
+        }
+        ], function(error) {
+            if (error) {
+                return callback(error);
+            }
+
+            callback(null, _result);
+    });
+};
+
 method.getClients = function(startWith, endWith, callback) {
     var that = this,
         _connection,
@@ -419,6 +445,33 @@ method.assignProductToClient = function(ids, callback) {
         function(connection, callback) {
             _connection = connection;
             connection.execute('begin auto_spa_package.assign_product_to_client( :p_client_id, :p_product_id ); end;',
+                                { p_client_id: ids.clientId, p_product_id: ids.productId }, callback);
+        },
+        function(result, callback) {
+            _connection.release(callback);
+        }
+        ], function(error) {
+            if (error) {
+                return callback(error);
+            }
+
+            callback(null);
+    });
+};
+
+method.removeProductFromClient = function(ids, callback) {
+    var that = this,
+        _connection;
+
+    console.log(ids);
+
+    async.waterfall([
+        function(callback) {
+            that.pool.getConnection(callback);
+        },
+        function(connection, callback) {
+            _connection = connection;
+            connection.execute('begin auto_spa_package.remove_product_from_client( :p_client_id, :p_product_id ); end;',
                                 { p_client_id: ids.clientId, p_product_id: ids.productId }, callback);
         },
         function(result, callback) {

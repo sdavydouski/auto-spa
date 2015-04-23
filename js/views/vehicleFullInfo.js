@@ -3,8 +3,10 @@
 define([
     'jquery',
     'underscore', 
-    'backbone'
-    ], function($, _, Backbone) {
+    'backbone',
+    'models/client',
+    'views/clientPopupInfo'
+    ], function($, _, Backbone, Client, ClientPopupInfoView) {
     var VehicleFullInfoView = Backbone.View.extend({
         tagname: 'div',
         className: 'vehicleFullInfo',
@@ -16,7 +18,8 @@ define([
             'click .cancelButton': 'cancel',
             'click .saveButton': 'updateModel',
             'click .deleteButton': 'deleteModel',
-            'click li': 'editField'
+            'click li': 'editField',
+            'click .vehicleOwnerInfoButton': 'showVehicleOwnerInfo'
         },
 
         initialize: function() {
@@ -26,6 +29,9 @@ define([
         },
 
         render: function() {
+            this.model.set({
+                hash: Backbone.history.getFragment()
+            });
             $('.mainContent').html( this.$el.html( this.template(this.model.toJSON()) ) );
             return this;
         },
@@ -130,6 +136,26 @@ define([
                     }
                 });
             }
+        },
+
+        showVehicleOwnerInfo: function(event) {
+            var that = this,
+                client = new Client({
+                    client_id: this.model.get('product').client_id
+                });
+            client.fetch({
+                success: function() {
+                    console.log('client fetch success');
+                    var clientPopupInfoView = new ClientPopupInfoView({
+                        model: client,
+                        productId: that.model.get('product').product_id
+                    });
+                    that.$el.find('.popup').append( clientPopupInfoView.render().el );
+                },
+                error: function() {
+                    console.log('client fetch error');
+                }
+            });
         }
 
     });

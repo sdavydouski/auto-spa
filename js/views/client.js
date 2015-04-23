@@ -164,7 +164,9 @@ define([
                 }
             });
 
-            //event.stopPropagation();      not this time
+            event.stopPropagation();
+
+            this.showClientVehicles();
         },
 
         showClientVehicles: function() {
