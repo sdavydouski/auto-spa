@@ -11,6 +11,8 @@ create or replace package auto_spa_package as
   procedure insert_client( client in varchar2, generated_client_id out number );
   procedure update_client( client in varchar2 );
   procedure delete_client( id in number );
+  procedure assign_product_to_client ( p_client_id in number, p_product_id in number );
+  procedure remove_product_from_client ( p_client_id in number, p_product_id in number );
 end auto_spa_package;
 
 /
@@ -544,6 +546,27 @@ create or replace package body auto_spa_package as
     commit;
     
   end delete_client;
+
+
+  procedure assign_product_to_client ( p_client_id in number, p_product_id in number )
+  as
+  begin
+    
+    update goods set client_id = p_client_id where product_id = p_product_id;
+    commit;
+    
+  end assign_product_to_client;
+  
+  
+  procedure remove_product_from_client ( p_client_id in number, p_product_id in number )
+  as
+  begin
+    
+    update goods set client_id = null where product_id = p_product_id;
+    commit;
+    
+  end remove_product_from_client;
+
 
 
 

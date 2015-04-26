@@ -463,8 +463,6 @@ method.removeProductFromClient = function(ids, callback) {
     var that = this,
         _connection;
 
-    console.log(ids);
-
     async.waterfall([
         function(callback) {
             that.pool.getConnection(callback);

@@ -81,7 +81,7 @@ define([
                        return new VehicleView( { model: vehicle } ).render().el;
                    });
             }
-            else {
+            else if ( /client/.test(Backbone.history.getFragment()) ) {
                 //should return something funny, but life is not a bed of roses
                 return 'Empty';
             }
